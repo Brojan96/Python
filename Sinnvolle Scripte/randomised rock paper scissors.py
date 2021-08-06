@@ -92,6 +92,8 @@ def game():
             quit()
         else : #not working correctly atm, I don't know why 
             IDontUnderstand()
+
+#game engine
 def clearConsole():
     command = 'clear'
     if os.name in ('nt', 'dos'):  # If Machine is running on Windows, use cls
@@ -112,7 +114,7 @@ def loadingScreen():
         time.sleep(0.075)
         counttime = counttime + 1
 
-#displayed texts
+#display texts
 def exit():
     print('\n##############################################################################################')
     print('\u001b[36mHave a nice day\u001b[0m')
