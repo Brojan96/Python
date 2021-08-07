@@ -75,7 +75,7 @@ def game():
             humanwin = 0
             compwin = 0
             NewRound()
-            time.sleep(3)
+            time.sleep(0.5)
             game()
             break
         elif (humanrps == 'score') or (humanrps == 'scoreboard') :
@@ -139,7 +139,8 @@ def colourAnswers():
         comprps = '\u001b[33mpaper\u001b[0m'
     else :
         comprps = '\u001b[36mscissors\u001b[0m'
-#display texts
+
+#printing
 def exit():
     clearConsole()
     print('\n##############################################################################################')
@@ -150,11 +151,13 @@ def IDontUnderstand():
     print('\n##############################################################################################')
     print("\u001b[33mI don't understand you... :(\u001b[0m")
     print('##############################################################################################\n')
-def NewRound(): #improve this later, add a countdown
+def NewRound(): #this should be improved in the future
     clearConsole()
-    print('\n##############################################################################################')
-    print('\u001b[35mNew Round starts in 3 Seconds!\u001b[0m')
-    print('##############################################################################################\n')
+    #print('\n##############################################################################################')
+    for i in range(5, 0, -1):
+        print('\u001b[35mNew Round starts in \u001b[0m' + str(i), end = '\r')
+        time.sleep(1)
+    #print('##############################################################################################\n')
 def help():
     clearConsole()
     print('\n##############################################################################################')
