@@ -1,0 +1,3 @@
+My collection:
+1. a rock, paper, scissors game with completly random answer by the computer and fancy colours. You play till one of you reaches the score of three.
+2. more to come...
