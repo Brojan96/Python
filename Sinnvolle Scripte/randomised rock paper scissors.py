@@ -12,49 +12,59 @@ def game():
     humanwin = 0
     compwin = 0
     winner = 0
+    clearConsole()
     help()
     while compwin < 3 and humanwin < 3 :
         options = 'rock', 'paper', 'scissors'
         comprps = random.choice(options)
-        human = input('type "rock", "paper", or "scissors"\n>')
+        human = input('type "\u001b[35mrock\u001b[0m", "\u001b[33mpaper\u001b[0m", or "\u001b[36mscissors\u001b[0m"\n>')
         humanrps = human.strip().lower()
         clearConsole()
         loadingScreen()
         if humanrps == 'rock' :
             if comprps == 'rock' : 
                 winner = "\u001b[33mNo one\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'paper' :
                 compwin = compwin + 1
                 winner = "\u001b[31mComputer\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'scissors' : 
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
+                colourAnswers()
                 gameengine()  
         elif humanrps == 'paper' :
             if comprps == 'rock' : 
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'paper' : 
                 winner = "\u001b[33mNo one\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'scissors' : 
                 compwin = compwin + 1
                 winner = "\u001b[31mComputer\u001b[0m"
+                colourAnswers()
                 gameengine()
         elif humanrps == 'scissors' :
             if comprps == 'rock' : 
                 compwin = compwin + 1
                 winner = "\u001b[31mComputer\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'paper' : 
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
+                colourAnswers()
                 gameengine()
             elif comprps == 'scissors' : 
                 winner = "\u001b[33mNo one\u001b[0m"
+                colourAnswers()
                 gameengine()
         elif (humanrps == 'exit') :
             exit()
@@ -75,8 +85,9 @@ def game():
     clearConsole()
     scoreboard()
     scoreboardfinal()
-    while True :
-        congame = input('Wanna play again? Answer "yes" or "no". \n>')
+    while True:
+        print('\n##############################################################################################')
+        congame = input('Wanna play again? Answer "\u001b[35myes\u001b[0m" or "\u001b[36mno\u001b[0m".\n>')
         clearConsole()
         loadingScreen()
         if congame.lower().strip() == 'yes' :
@@ -113,36 +124,54 @@ def loadingScreen():
         sys.stdout.write('\b')            # erase the last written char
         time.sleep(0.075)
         counttime = counttime + 1
-
+def colourAnswers():
+    global humanrps
+    global comprps
+    if humanrps == "rock" :
+        humanrps = '\u001b[35mrock\u001b[0m'
+    elif humanrps == "paper" :
+        humanrps = '\u001b[33mpaper\u001b[0m'
+    else :
+        humanrps = '\u001b[36mscissors\u001b[0m'
+    if comprps == "rock" :
+        comprps = '\u001b[35mrock\u001b[0m'
+    elif comprps == "paper" :
+        comprps = '\u001b[33mpaper\u001b[0m'
+    else :
+        comprps = '\u001b[36mscissors\u001b[0m'
 #display texts
 def exit():
+    clearConsole()
     print('\n##############################################################################################')
-    print('\u001b[36mHave a nice day\u001b[0m')
+    print('\u001b[36mHave a nice day :)\u001b[0m')
     print('##############################################################################################\n')
 def IDontUnderstand():
+    clearConsole()
     print('\n##############################################################################################')
-    print("\u001b[34mI don't understand... :(\u001b[0m")
+    print("\u001b[33mI don't understand you... :(\u001b[0m")
     print('##############################################################################################\n')
-def NewRound():
+def NewRound(): #improve this later, add a countdown
     clearConsole()
     print('\n##############################################################################################')
     print('\u001b[35mNew Round starts in 3 Seconds!\u001b[0m')
     print('##############################################################################################\n')
 def help():
+    clearConsole()
     print('\n##############################################################################################')
     print("Let's play rock paper scissors!\n")
-    print('The \u001b[31mComputer\u001b[0m and you, the \u001b[32mPlayer\u001b[0m will play till one of you reaches the score of 3 \u001b[33mwins\u001b[0m. \n')
-    print('You can type: \n\u001b[1m"help"\u001b[0m to see this helpscreen,\n\u001b[1m"score"\u001b[0m to see the scoreboard, \n\u001b[1m"exit"\u001b[0m to exit the game, or \n\u001b[1m"restart"\u001b[0m to restart the game at \u001b[4many\u001b[0m time in the game.')
+    print('The \u001b[31mComputer\u001b[0m and you, the \u001b[32mPlayer\u001b[0m, will play till one of you reaches the score of 3 \u001b[34mWins\u001b[0m. \n')
+    print('You can type: \n\u001b[1m"help"\u001b[0m to see this helpscreen,\n\u001b[1m"score"\u001b[0m to see the scoreboard, \n\u001b[1m"restart"\u001b[0m to restart the game, or \n\u001b[1m"exit"\u001b[0m to exit the game at \u001b[4many\u001b[0m time in the game.')
     print('##############################################################################################\n')
 def gameengine() :
     clearConsole()
     print('\n##############################################################################################')
-    print('The \u001b[32mPlayer\u001b[0m uses: ' + str(humanrps) + '\n' + 'The \u001b[31mcomputer\u001b[0m uses: ' + str(comprps) + '\n')
-    print('Winner of this round: ' + str(winner))
+    print('The \u001b[32mPlayer\u001b[0m uses: '  + str(humanrps) + '\n' + 'The \u001b[31mcomputer\u001b[0m uses: ' + str(comprps) + '\n')
+    print('\n\u001b[1mWinner\u001b[0m of this round: ' + str(winner))
     print('##############################################################################################\n')
 def scoreboard() :
+    clearConsole()
     print('\n-----------------------------------------------------')
-    print('Scoreboard - \u001b[33mWins\u001b[0m')
+    print('Scoreboard - \u001b[34mWins\u001b[0m')
     print('-----------------------------------------------------')
     print('\u001b[32mPlayer\u001b[0m: ' + str(humanwin))
     print('\u001b[31mComputer\u001b[0m: ' + str(compwin))
