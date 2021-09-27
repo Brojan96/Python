@@ -1,26 +1,29 @@
 import random
 import os
 
-#yes = set(['yes','y', 'ye', ''])
-#no = set(['no','n'])
-#choice = raw_input(answer).lower()
-
 def passwordgenerator() :
 	clearConsole()
 	yes = set(['yes','y', 'ye', ''])
 	characterlist = 'abcdefghijklmnopqrstuvwxyzäöü'
 	while True :
-		length = input('How many characters should your password be? [50]\n>') 
-		if length == '' : 
-			length = int(50)
-			break
-		else :
-			try:
-				length = int (length)
-				break
-			except:
+		length = input('How many characters should your password be? [50]\n>')
+		try:
+			if length == '' :
+				length = int(50)
+			length = int(length)
+			if length < 1:
 				clearConsole()
-				print('Please enter a number :(')
+				print('Please enter a positive number.\n')
+				continue
+			break
+		except:
+			clearConsole()
+			print('Please enter a numeric value :(\n')
+		#if length == '' : 
+		#	length = int(50)
+		#	break
+		#elif (length < 1) :
+			
 	while True:
 		choice = input('Should the password contain uppercase characters? [y]\n>').lower().strip()
 		if choice in yes :
@@ -46,7 +49,7 @@ def passwordgenerator() :
 			clearConsole()
 			print('Please enter "yes" or "no"')
 	password = ''.join(random.sample(characterlist, length))
-	print('\nGenerated Password:\n' + password)
+	print('\nGenerated Password:\n' + password + '\n')
 			
 def clearConsole():
     command = 'clear'
@@ -54,4 +57,3 @@ def clearConsole():
         command = 'cls'
     os.system(command)
 passwordgenerator()
-
