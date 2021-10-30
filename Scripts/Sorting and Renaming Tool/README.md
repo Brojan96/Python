@@ -1,0 +1,1 @@
+Script imports files in a certain directory and all its subdirectories and renames all of them to "creation date (yyyy-mm-dd)_filename.filetype" (according to ISO 860... Standard)

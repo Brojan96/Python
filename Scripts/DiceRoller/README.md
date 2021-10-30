@@ -1,0 +1,1 @@
+A simple dice roller, that outputs the numbers generated in the terminal.
