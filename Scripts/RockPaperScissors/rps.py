@@ -97,11 +97,7 @@ def game():
             time.sleep(3)
             game()
             break
-        elif congame.lower().strip() == 'no' : #or not working at this position 
-            clearConsole()
-            exit()
-            quit()
-        elif congame.lower().strip() == 'exit' :
+        elif congame.lower().strip() == 'no' or congame.lower().strip() == 'exit': #or not working at this position 
             clearConsole()
             exit()
             quit()
