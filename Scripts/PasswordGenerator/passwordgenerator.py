@@ -4,6 +4,7 @@ import os
 def passwordgenerator() :
 	clearConsole()
 	yes = set(['yes','y', 'ye', ''])
+	no = set(['no','n', 'ne'])
 	characterlist = 'abcdefghijklmnopqrstuvwxyzäöü'
 	while True :
 		length = input('How many characters should your password be? [50]\n>')
@@ -29,6 +30,8 @@ def passwordgenerator() :
 		if choice in yes :
 			characterlist = characterlist + 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
 			break
+		if choice in no :
+			break
 		else :
 			clearConsole()
 			print('Please enter "yes" or "no"')
@@ -36,6 +39,8 @@ def passwordgenerator() :
 		choice = input('Should the password contain numbers? [y]\n>').lower().strip()
 		if choice in yes :
 			characterlist = characterlist + '1234567890'
+			break
+		if choice in no :
 			break
 		else :
 			clearConsole()
@@ -45,10 +50,12 @@ def passwordgenerator() :
 		if choice in yes :
 			characterlist = characterlist + '!"§$%&/()=?´`<>|@µ,.;:-_+*~ß?\}][{^°'
 			break
+		if choice in no :
+			break
 		else :
 			clearConsole()
 			print('Please enter "yes" or "no"')
-	password = ''.join(random.sample(characterlist, length))
+	password = ''.join(random.choices(characterlist, k=length))
 	print('\nGenerated Password:\n' + password + '\n')
 			
 def clearConsole():
