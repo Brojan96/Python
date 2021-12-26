@@ -20,10 +20,6 @@ def passwordgenerator() :
 		except:
 			clearConsole()
 			print('Please enter a numeric value :(\n')
-		#if length == '' : 
-		#	length = int(50)
-		#	break
-		#elif (length < 1) :
 			
 	while True:
 		choice = input('Should the password contain uppercase characters? [y]\n>').lower().strip()
@@ -35,6 +31,7 @@ def passwordgenerator() :
 		else :
 			clearConsole()
 			print('Please enter "yes" or "no"')
+
 	while True: 
 		choice = input('Should the password contain numbers? [y]\n>').lower().strip()
 		if choice in yes :
@@ -45,6 +42,7 @@ def passwordgenerator() :
 		else :
 			clearConsole()
 			print('Please enter "yes" or "no"')
+			
 	while True: 
 		choice = input('Should the password contain special characters? [y]\n>').lower().strip()
 		if choice in yes :
