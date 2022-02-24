@@ -55,7 +55,7 @@ def passwordgenerator() :
 			print('Please enter "yes" or "no"')
 	password = ''.join(random.choices(characterlist, k=length))
 	while True: 
-		choice = input('Should the password be written into a text file? [n]\n>').lower().strip()
+		choice = input('Should the password be written into a text file? [y]\n>').lower().strip()
 		if choice in yes :
 			with open('password.txt', 'a') as f:
 				f.write(password + '\n')
