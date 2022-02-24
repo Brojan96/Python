@@ -14,7 +14,7 @@ def game():
     winner = None
     clearConsole()
     help()
-    while compwin < 3 and humanwin < 3 :
+    while compwin < 3 and humanwin < 3:
         options = 'rock', 'paper', 'scissors'
         comprps = random.choice(options)
         humanrps = input('type "\u001b[35mrock\u001b[0m", "\u001b[33mpaper\u001b[0m", or "\u001b[36mscissors\u001b[0m"\n>').strip().lower()
@@ -39,43 +39,43 @@ def game():
             winner = "\u001b[33mNo one\u001b[0m"
             colourAnswers()
             gameengine()
-        elif (humanrps == 'exit') :
+        elif humanrps == 'exit':
             exit()
             quit()
-        elif (humanrps == 'help') :
+        elif humanrps == 'help':
             help()
-        elif humanrps == 'restart' :
+        elif humanrps == 'restart':
             humanwin = 0
             compwin = 0
             NewRound()
             time.sleep(0.5)
             game()
             break
-        elif (humanrps == 'score') or (humanrps == 'scoreboard') :
+        elif (humanrps == 'score') or (humanrps == 'scoreboard'):
             scoreboard()
-        elif humanrps not in options :
+        elif humanrps not in options:
             IDontUnderstand()
-        else :
+        else:
             compwin = compwin + 1
             winner = "\u001b[31mComputer\u001b[0m"
             colourAnswers()
             gameengine()
     clearConsole()
     scoreboard()
-    scoreboardfinal()
+    finalresult()
     while True:
         print('\n##############################################################################################')
         congame = input('Wanna play again? Answer "\u001b[35myes\u001b[0m" or "\u001b[36mno\u001b[0m".\n>')
         clearConsole()
         loadingScreen()
-        if congame.lower().strip() == 'yes' :
+        if congame.lower().strip() == 'yes':
             humanwin = 0
             compwin = 0
             NewRound()
             time.sleep(0.5)
             game()
             break
-        elif congame.lower().strip() == 'no' or congame.lower().strip() == 'exit': #or not working at this position 
+        elif congame.lower().strip() == 'no' or congame.lower().strip() == 'exit': 
             clearConsole()
             exit()
             quit()
@@ -139,13 +139,13 @@ def help():
     print('The \u001b[31mComputer\u001b[0m and you, the \u001b[32mPlayer\u001b[0m, will play till one of you reaches the score of 3 \u001b[34mWins\u001b[0m. \n')
     print('You can type: \n\u001b[1m"help"\u001b[0m to see this helpscreen,\n\u001b[1m"score"\u001b[0m to see the scoreboard, \n\u001b[1m"restart"\u001b[0m to restart the game, or \n\u001b[1m"exit"\u001b[0m to exit the game at \u001b[4many\u001b[0m time in the game.')
     print('##############################################################################################\n')
-def gameengine() :
+def gameengine():
     clearConsole()
     print('\n##############################################################################################')
     print('The \u001b[32mPlayer\u001b[0m uses: '  + str(humanrps) + '\n' + 'The \u001b[31mcomputer\u001b[0m uses: ' + str(comprps) + '\n')
     print('\n\u001b[1mWinner\u001b[0m of this round: ' + str(winner))
     print('##############################################################################################\n')
-def scoreboard() :
+def scoreboard():
     clearConsole()
     print('\n-----------------------------------------------------')
     print('Scoreboard - \u001b[34mWins\u001b[0m')
@@ -153,9 +153,9 @@ def scoreboard() :
     print('\u001b[32mPlayer\u001b[0m: ' + str(humanwin))
     print('\u001b[31mComputer\u001b[0m: ' + str(compwin))
     print('-----------------------------------------------------\n')
-def scoreboardfinal() :
-    if compwin < humanwin :
+def finalresult():
+    if compwin < humanwin:
         print('The \u001b[32mPlayer\u001b[0m wins the game! Congratulations!\n')
-    if compwin > humanwin :
+    if compwin > humanwin:
         print('The \u001b[31mComputer\u001b[0m wins the game! Hail to the king!\n')
 game()
