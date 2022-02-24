@@ -4,4 +4,5 @@ I modified it and added the possibility to abort the test while its running and 
 
 Known issues:
 - programm crashes on line 73, if a non ordinance key is pressed. For example up arrow.
-- programm crashes, when ESC is pressed, while the wpm test is running.
+- programm crashes on line 51, when ESC is pressed, while the wpm test is running.
+- programm crashes on line 82, if a non ordinance key is pressed. For example up arrow.

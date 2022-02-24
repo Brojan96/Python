@@ -4,7 +4,7 @@ import os
 import random
 import time
 
-def display_text(stdscr, target, current, wpm=0):
+def display_text(stdscr, target, current, wpm):
     stdscr.addstr(target)
     stdscr.addstr(1, 0, f'WPM: {wpm}')
         
@@ -48,11 +48,11 @@ def wpm_test(stdscr):
         except:
             continue
         
-        if ord(key) == 27: #programm crashes here, need to find a way to fix the ordinance issue
-            break
-
         if current_text == [ ]:
             start_time = time.time()
+
+        if ord(key) == 27: #programm crashes here, need to find a way to fix the ordinance issue
+            break
 
         if key in ("KEY_BACKSPACE", "\b", "\x7f"):
             if len(current_text) > 0:
@@ -79,7 +79,7 @@ def main(stdscr):
             stdscr.addstr(4, 0, 'Press any other key to measure your WPM again...')
             key = stdscr.getkey()
             
-            if ord(key) == 27: 
+            if ord(key) == 27: #programm crashes here, need to find a way to fix the ordinance issue
                 break
 
 wrapper(main)
