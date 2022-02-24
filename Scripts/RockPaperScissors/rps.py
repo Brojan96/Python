@@ -17,55 +17,28 @@ def game():
     while compwin < 3 and humanwin < 3 :
         options = 'rock', 'paper', 'scissors'
         comprps = random.choice(options)
-        human = input('type "\u001b[35mrock\u001b[0m", "\u001b[33mpaper\u001b[0m", or "\u001b[36mscissors\u001b[0m"\n>')
-        humanrps = human.strip().lower()
+        humanrps = input('type "\u001b[35mrock\u001b[0m", "\u001b[33mpaper\u001b[0m", or "\u001b[36mscissors\u001b[0m"\n>').strip().lower()
         clearConsole()
         loadingScreen()
-        if humanrps == 'rock' :
-            if comprps == 'rock' : 
-                winner = "\u001b[33mNo one\u001b[0m"
-                colourAnswers()
-                gameengine()
-            elif comprps == 'paper' :
-                compwin = compwin + 1
-                winner = "\u001b[31mComputer\u001b[0m"
-                colourAnswers()
-                gameengine()
-            elif comprps == 'scissors' : 
-                humanwin = humanwin + 1
-                winner = "\u001b[32mPlayer\u001b[0m"
-                colourAnswers()
-                gameengine()  
-        elif humanrps == 'paper' :
-            if comprps == 'rock' : 
+        if humanrps == 'rock' and comprps == 'scissors':
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
                 colourAnswers()
                 gameengine()
-            elif comprps == 'paper' : 
-                winner = "\u001b[33mNo one\u001b[0m"
-                colourAnswers()
-                gameengine()
-            elif comprps == 'scissors' : 
-                compwin = compwin + 1
-                winner = "\u001b[31mComputer\u001b[0m"
-                colourAnswers()
-                gameengine()
-        elif humanrps == 'scissors' :
-            if comprps == 'rock' : 
-                compwin = compwin + 1
-                winner = "\u001b[31mComputer\u001b[0m"
-                colourAnswers()
-                gameengine()
-            elif comprps == 'paper' : 
+        elif humanrps == 'paper' and comprps == 'rock':
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
                 colourAnswers()
                 gameengine()
-            elif comprps == 'scissors' : 
-                winner = "\u001b[33mNo one\u001b[0m"
+        elif humanrps == 'scissors' and comprps == 'paper':
+                humanwin = humanwin + 1
+                winner = "\u001b[32mPlayer\u001b[0m"
                 colourAnswers()
                 gameengine()
+        elif humanrps == comprps:
+            winner = "\u001b[33mNo one\u001b[0m"
+            colourAnswers()
+            gameengine()
         elif (humanrps == 'exit') :
             exit()
             quit()
@@ -80,8 +53,13 @@ def game():
             break
         elif (humanrps == 'score') or (humanrps == 'scoreboard') :
             scoreboard()
-        else :
+        elif humanrps not in options :
             IDontUnderstand()
+        else :
+            compwin = compwin + 1
+            winner = "\u001b[31mComputer\u001b[0m"
+            colourAnswers()
+            gameengine()
     clearConsole()
     scoreboard()
     scoreboardfinal()
@@ -94,7 +72,7 @@ def game():
             humanwin = 0
             compwin = 0
             NewRound()
-            time.sleep(3)
+            time.sleep(0.5)
             game()
             break
         elif congame.lower().strip() == 'no' or congame.lower().strip() == 'exit': #or not working at this position 
@@ -111,10 +89,6 @@ def clearConsole():
         command = 'cls'
     os.system(command)
 def loadingScreen():
-    #for frame in itertools.cycle(r'-\|/-\|/'):
-        #print('\r', frame, sep='', end='', flush=True)
-        #time.sleep(0.2)
-        #timer = timer + 1
     counttime = 0
     spinner = itertools.cycle(['-', '/', '|', '\\'])
     while (counttime != 10):
