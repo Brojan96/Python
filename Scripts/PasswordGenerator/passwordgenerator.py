@@ -26,7 +26,7 @@ def passwordgenerator() :
 		if choice in yes :
 			characterlist = characterlist + 'ABCDEFGHIJKLMNOPQRSTUVWXYZÄÖÜ'
 			break
-		if choice in no :
+		elif choice in no :
 			break
 		else :
 			clearConsole()
@@ -37,7 +37,7 @@ def passwordgenerator() :
 		if choice in yes :
 			characterlist = characterlist + '1234567890'
 			break
-		if choice in no :
+		elif choice in no :
 			break
 		else :
 			clearConsole()
@@ -48,12 +48,23 @@ def passwordgenerator() :
 		if choice in yes :
 			characterlist = characterlist + '!"§$%&/()=?´`<>|@µ,.;:-_+*~ß?\}][{^°'
 			break
-		if choice in no :
+		elif choice in no :
 			break
 		else :
 			clearConsole()
 			print('Please enter "yes" or "no"')
 	password = ''.join(random.choices(characterlist, k=length))
+	while True: 
+		choice = input('Should the password be written into a text file? [n]\n>').lower().strip()
+		if choice in yes :
+			with open('password.txt', 'a') as f:
+				f.write(password + '\n')
+			break
+		elif choice in no :
+			break
+		else :
+			clearConsole()
+			print('Please enter "yes" or "no"')
 	print('\nGenerated Password:\n' + password + '\n')
 			
 def clearConsole():
