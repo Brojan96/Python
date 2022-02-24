@@ -11,7 +11,7 @@ def game():
     global comprps
     humanwin = 0
     compwin = 0
-    winner = 0
+    winner = None
     clearConsole()
     help()
     while compwin < 3 and humanwin < 3 :
