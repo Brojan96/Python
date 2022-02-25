@@ -20,17 +20,7 @@ def game():
         humanrps = input('type "\u001b[35mrock\u001b[0m", "\u001b[33mpaper\u001b[0m", or "\u001b[36mscissors\u001b[0m"\n>').strip().lower()
         clearConsole()
         loadingScreen()
-        if humanrps == 'rock' and comprps == 'scissors':
-                humanwin = humanwin + 1
-                winner = "\u001b[32mPlayer\u001b[0m"
-                colourAnswers()
-                gameengine()
-        elif humanrps == 'paper' and comprps == 'rock':
-                humanwin = humanwin + 1
-                winner = "\u001b[32mPlayer\u001b[0m"
-                colourAnswers()
-                gameengine()
-        elif humanrps == 'scissors' and comprps == 'paper':
+        if (humanrps == 'rock' and comprps == 'scissors') or (humanrps == 'paper' and comprps == 'rock') or (humanrps == 'scissors' and comprps == 'paper'):
                 humanwin = humanwin + 1
                 winner = "\u001b[32mPlayer\u001b[0m"
                 colourAnswers()
@@ -127,11 +117,9 @@ def IDontUnderstand():
     print('##############################################################################################\n')
 def NewRound(): #this should be improved in the future
     clearConsole()
-    #print('\n##############################################################################################')
-    for i in range(5, 0, -1):
+    for i in range(3, 0, -1):
         print('\u001b[35mNew Round starts in \u001b[0m' + str(i), end = '\r')
         time.sleep(1)
-    #print('##############################################################################################\n')
 def help():
     clearConsole()
     print('\n##############################################################################################')
