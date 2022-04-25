@@ -1,3 +1,7 @@
-My collection:
+# My collection:
+<p>
 1. a rock, paper, scissors game with completly random answer by the computer and fancy colours. You play till one of you reaches the score of three.
-2. more to come...
+2. a dice roller,
+3. a Password Generator
+4. a Typing Speed Test
+</p>
