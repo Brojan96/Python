@@ -37,8 +37,8 @@ def dice_roller() :
 	numberandpositive(x, 6)
 	clearConsole()
 	counter = 0
-	while counter < int(values[0]) :
+	while counter < values[0] :
 		counter = counter + 1
-		result = int(random.uniform(int(values[1]), int(values[2])))
+		result = random.randint(values[1], values[2])
 		print(result)
 dice_roller()
