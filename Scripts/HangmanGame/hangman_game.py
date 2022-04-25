@@ -1,5 +1,34 @@
+import curses
+from curses import wrapper
 import random
 import os
+
+target = random.choice(wordlist.txt)
+
+stdscr = curses.initscr()
+curses.noecho()
+curses.cbreak() #optional, curses will react instantly, no need to press enter
+
+def main(stdscr):
+	curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+    curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+    curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
+
+	stdscr.clear()
+	while guesses < 11:
+		try:
+			key = stdscr.getkey()
+
+			if key in target
+				stdscr.addstr(key, 1, 0)
+			else :
+				print(Galgen)
+
+        except:
+            continue
+
+		
+		
 
 def hangman_game() :
 	global answer
