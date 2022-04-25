@@ -17,7 +17,7 @@ def numberandpositive(x, standardvalue):
 			break
 		except:
 			clearConsole()
-			print('Please enter a numeric value :(\n')
+			x=input(f'Please enter a numeric value or press enter to set the standard value [{standardvalue}].\n>')
 
 def clearConsole():
 	command = 'clear'
@@ -27,13 +27,13 @@ def clearConsole():
 
 def dice_roller() :
 	clearConsole()
-	x = input('How many dices should I roll for you? [1]')
+	x = input('How many dices should I roll for you? [1]\n>')
 	numberandpositive(x, 1)
 	clearConsole()
-	x = input('Lowest possible number? [1]')
+	x = input('Lowest possible number? [1]\n>')
 	numberandpositive(x, 1)
 	clearConsole()
-	x = input('Highest possible number? [6]')
+	x = input('Highest possible number? [6]\n>')
 	numberandpositive(x, 6)
 	clearConsole()
 	counter = 0
