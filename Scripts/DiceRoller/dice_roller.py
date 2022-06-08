@@ -41,5 +41,6 @@ def dice_roller() :
 		counter = counter + 1
 		result = random.randint(values[1], values[2])
 		print(result)
+		
 if __name__=="__main__":
 	dice_roller()
