@@ -1,5 +1,48 @@
 import os
+import time
 from datetime import datetime
+
+"""
+TODO: 
+- add check if file name is already contains date
+- manage user interactions
+	- Abfrage Pfad
+	- Abfrage subdirectories
+	- Abfrage Datumsformat 
+	- Show changes 
+	- Sicherheitsfrage
+- Kommandozeilen Argumente
+"""
+
+def renaming (path, subdirectories, listfiles, dateformat, showchanges, force) :
+	filelist = []
+
+	if subdirectories:
+		for root, folders, files in os.walk(path):
+			for file in files:
+				filelist.append((root, file))
+
+	else :
+		for file in os.listdir(path):
+			if os.path.isfile(os.path.join(path, file)) :
+				filelist.append((path, file))
+
+	if listfiles:
+		for root, file in filelist:
+			print(os.path.join(root,file))
+			
+	for root,file in filelist:
+		modificationTime = time.strftime('%Y-%m-%d_', time.localtime(os.path.getmtime(os.path.join(root, file))))
+		os.rename(os.path.join(root, file), os.path.join(root, modificationTime + file))
+
+renaming("C:\\Users\\janbr\\Desktop\\Test", True, True, True)
+
+
+"""
+os.path.isfile
+
+os.path.join(root,file)
+os.rename()
 
 def options() :
 	location = input ('Please name the directory in which the files, which should be renamed, are located: \n>')
@@ -54,3 +97,4 @@ def options() :
 		for path in pathlist :
 			os.rename(path, str(datetime.fromtimestamp(os.stat(path).st_ctime))[0:10]+' '+path)
 options()
+"""
