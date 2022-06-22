@@ -1,20 +1,24 @@
+from email.mime import base
+from operator import ne
 import os
 import time
-from datetime import datetime
+import re
+#import curses
+#from datetime import datetime
 
 """
 TODO: 
-- add check if file name is already contains date
 - manage user interactions
 	- Abfrage Pfad
 	- Abfrage subdirectories
 	- Abfrage Datumsformat 
 	- Show changes 
 	- Sicherheitsfrage
+- Progress Bar
 - Kommandozeilen Argumente
 """
 
-def renaming (path, subdirectories, listfiles, dateformat, showchanges, force) :
+def renaming (path, subdirectories, showchanges, dateformat) :
 	filelist = []
 
 	if subdirectories:
@@ -27,17 +31,48 @@ def renaming (path, subdirectories, listfiles, dateformat, showchanges, force) :
 			if os.path.isfile(os.path.join(path, file)) :
 				filelist.append((path, file))
 
-	if listfiles:
-		for root, file in filelist:
-			print(os.path.join(root,file))
-			
+	nameList = []
+	if showchanges:
+		print()
+
 	for root,file in filelist:
 		modificationTime = time.strftime('%Y-%m-%d_', time.localtime(os.path.getmtime(os.path.join(root, file))))
-		os.rename(os.path.join(root, file), os.path.join(root, modificationTime + file))
+		if modificationTime == file[:11]:
+			continue
+		baseName = file
+		if re.match(r"^(\d{4}-\d{2}-\d{2}_.*)$", file):
+			baseName = baseName[11:]
+		if showchanges:
+			print(os.path.join(root, file) + "\t=>\t" + os.path.join(root, modificationTime + baseName))
+		nameList.append((os.path.join(root, file), os.path.join(root, modificationTime + baseName)))
+	
+	if len(nameList) == 0:
+		print("All files already have already been renamed with their modification dates.")
+		return 1
 
+	yes = ["yes", "ye", "y", "", " "]
+
+	if showchanges:
+		if not input("\nDo you want to accept the changes? [y]\n>").lower().strip() in yes:
+			return -1
+	
+	for oldName,newName in nameList:
+		os.rename(oldName, newName)
+			
 renaming("C:\\Users\\janbr\\Desktop\\Test", True, True, True)
 
+def userinterface():
+	path = input()
+	subdirectories = input()
+	showchanges = input()
 
+"""
+ 	- Abfrage Pfad
+	- Abfrage subdirectories
+	- Abfrage Datumsformat 
+	- Show changes 
+	- Sicherheitsfrage
+"""
 """
 os.path.isfile
 
