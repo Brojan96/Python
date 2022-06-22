@@ -1,3 +1,4 @@
+from datetime import date
 from email.mime import base
 from operator import ne
 import os
@@ -17,8 +18,12 @@ TODO:
 - Progress Bar
 - Kommandozeilen Argumente
 """
+yes = ["yes", "ye", "y", "", " "]
 
-def renaming (path, subdirectories, showchanges, dateformat) :
+def renaming(path, subdirectories, dateformat, showchanges) :
+	if renaming == renaming(None, None, None, None): #this is fucking stupid
+		userinteraction(path, subdirectories, dateformat, showchanges)
+
 	filelist = []
 
 	if subdirectories:
@@ -50,10 +55,9 @@ def renaming (path, subdirectories, showchanges, dateformat) :
 		print("All files already have already been renamed with their modification dates.")
 		return 1
 
-	yes = ["yes", "ye", "y", "", " "]
-
 	if showchanges:
-		if not input("\nDo you want to accept the changes? [y]\n>").lower().strip() in yes:
+		if not input("\nDo you want to accept the changes above? [y]\n>").lower().strip() in yes:
+			print("Aborting... no changes were made.")
 			return -1
 	
 	for oldName,newName in nameList:
@@ -61,10 +65,25 @@ def renaming (path, subdirectories, showchanges, dateformat) :
 			
 renaming("C:\\Users\\janbr\\Desktop\\Test", True, True, True)
 
-def userinterface():
-	path = input()
-	subdirectories = input()
-	showchanges = input()
+def userinteraction(path, subdirectories, dateformat, showchanges):
+	path = input("Where is the base directory located? [y]\n>").lower().strip()
+	if input("Should subdirectories be included? [y]\n>").lower().strip() in yes:
+		subdirectories = True
+	else:
+		subdirectories = False
+
+	dateformat = input("Which format would you like to use?\n1. YYYY-MM-DD \n2.DD-MM-YYYY\n3.YYYY-DD-MM [1]\n>").lower().strip()
+	if dateformat == 1:
+		dateformat = "%Y-%m-%d"
+	elif dateformat == 2:
+		dateformat = "%d-%m-%Y"
+	else:
+		dateformat = "%Y-%d-%m"
+
+	if input("Do you want to review the changes before the program executes? [y]\n>").lower().strip() in yes:
+		showchanges = True
+	else:
+		showchanges = False
 
 """
  	- Abfrage Pfad
