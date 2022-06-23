@@ -21,8 +21,8 @@ TODO:
 yes = ["yes", "ye", "y", "", " "]
 
 def renaming(path, subdirectories, dateformat, showchanges) :
-	if renaming == renaming(None, None, None, None): #this is fucking stupid
-		userinteraction(path, subdirectories, dateformat, showchanges)
+	#if renaming == renaming(None, None, None, None): #this is stupid
+	#	userinteraction(path, subdirectories, dateformat, showchanges)
 
 	filelist = []
 
