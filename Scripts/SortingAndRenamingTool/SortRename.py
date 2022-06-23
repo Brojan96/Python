@@ -41,7 +41,7 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 		print()
 
 	for root,file in filelist:
-		modificationTime = time.strftime('%Y-%m-%d_', time.localtime(os.path.getmtime(os.path.join(root, file))))
+		modificationTime = time.strftime(dateformat, time.localtime(os.path.getmtime(os.path.join(root, file))))
 		if modificationTime == file[:11]:
 			continue
 		baseName = file
@@ -63,7 +63,7 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 	for oldName,newName in nameList:
 		os.rename(oldName, newName)
 			
-renaming("C:\\Users\\janbr\\Desktop\\Test", True, True, True)
+renaming("C:\\Users\\janbr\\Desktop\\Test", True, '%Y-%m-%d_', True)
 
 def userinteraction(path, subdirectories, dateformat, showchanges):
 	path = input("Where is the base directory located? [y]\n>").lower().strip()
