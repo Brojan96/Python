@@ -1,6 +1,3 @@
-from datetime import date
-from email.mime import base
-from operator import ne
 import os
 import time
 import re
@@ -62,11 +59,14 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 	
 	for oldName,newName in nameList:
 		os.rename(oldName, newName)
+	print("Done.")
 			
-renaming("C:\\Users\\janbr\\Desktop\\Test", True, '%Y-%m-%d_', True)
+renaming("/home/brojan/Documents/Test", True, '%Y-%m-%d_', True)
 
 def userinteraction(path, subdirectories, dateformat, showchanges):
 	path = input("Where is the base directory located? [y]\n>").lower().strip()
+	if os.name == "dos":
+		path = path.replace("\\", "\\\\")
 	if input("Should subdirectories be included? [y]\n>").lower().strip() in yes:
 		subdirectories = True
 	else:
