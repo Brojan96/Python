@@ -15,7 +15,7 @@ TODO:
 - Progress Bar
 - Kommandozeilen Argumente
 """
-yes = ["yes", "ye", "y", "", " "]
+yes = ["yes", "ye", "y", ""]
 
 def renaming(path, subdirectories, dateformat, showchanges) :
 	#if renaming == renaming(None, None, None, None): #this is stupid
@@ -53,10 +53,24 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 		return 1
 
 	if showchanges:
-		if not input("\nDo you want to accept the changes above? [y]\n>").lower().strip() in yes:
+		if not input("\nDo you want to accept the changes above? [y]\n>").lower().strip() in yes: #maybe modify this so only yes and no are possible and other inputs return the question
 			print("Aborting... no changes were made.")
 			return -1
 	
+	"""
+	if showchanges:
+		while True:
+			answer = input("\nDo you want to accept the changes above? [y]\n>").lower().strip()
+			if answer in yes: #maybe modify this so only yes and no are possible and other inputs return the question
+				break
+			elif answer in no:
+				print("Aborting... no changes were made.")
+				break
+				return -1
+			else:
+				print("Please enter a valid response.")
+	"""
+
 	for oldName,newName in nameList:
 		os.rename(oldName, newName)
 	print("Done.")
