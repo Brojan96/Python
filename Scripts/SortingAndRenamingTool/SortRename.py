@@ -65,7 +65,7 @@ renaming("/home/brojan/Documents/Test", True, '%Y-%m-%d_', True)
 
 def userinteraction(path, subdirectories, dateformat, showchanges):
 	path = input("Where is the base directory located? [y]\n>").lower().strip()
-	if os.name == "dos":
+	if os.name == "dos" or "nt":
 		path = path.replace("\\", "\\\\")
 	if input("Should subdirectories be included? [y]\n>").lower().strip() in yes:
 		subdirectories = True
