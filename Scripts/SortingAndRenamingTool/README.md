@@ -1,1 +1,1 @@
-Script imports files in a certain directory and all its subdirectories and renames all of them to "creation date (yyyy-mm-dd)_filename.filetype" (according to ISO 860... Standard)
+Script imports files in a certain directory and all its subdirectories and renames all of them to (modification date) "yyyy-mm-dd_filename.filetype" (according to ISO 8601 Standard) or "dd-mm-yyyy_filename.filetype" (european standard) or "mm-dd-yyyy_filename.filetype" (american standard) according to the user input.
