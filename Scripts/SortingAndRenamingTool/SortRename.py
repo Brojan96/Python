@@ -1,7 +1,7 @@
 import os
 import time
 import re
-from PythonToolbox import progressbar
+from PythonToolbox import terminalProgressbar
 
 """
 TODO: 
@@ -39,8 +39,8 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 			baseName = baseName[11:]
 		elif re.match(r"^(\d{2}-\d{2}-\d{4}_.*)$", file): 
 			baseName = baseName[11:]
-		elif re.match(r"^(\d{2}-\d{4}-\d{2}_.*)$", file): 
-			baseName = baseName[11:]
+		#elif re.match(r"^(\d{2}-\d{4}-\d{2}_.*)$", file): #probably obsolete
+			#baseName = baseName[11:]
 		if showchanges:
 			print(os.path.join(root, file) + "\t=>\t" + os.path.join(root, modificationTime + baseName))
 		nameList.append((os.path.join(root, file), os.path.join(root, modificationTime + baseName)))
@@ -50,18 +50,29 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 		return 1
 
 	if showchanges:
-		if not input("\nDo you want to accept the changes above? [y]\n>").lower().strip() in yes: #maybe modify this so only yes and no are possible and other inputs return the question
-			print("Aborting... no changes were made.")
-			return -1
+		fix = None
+		while fix == None:
+			answer = input("\nDo you want to accept the changes above? [y]\n>").lower().strip()
+			if answer in no: #maybe modify this so only yes and no are possible and other inputs return the question
+				print("Aborting... no changes were made.")
+				return -1
+			elif answer in yes:
+				fix = 1
+			else:
+				print("\nInvalid input.")
 
-	for oldName,newName in progressbar(nameList, "Renaming: ", 40):
+
+	for oldName,newName in terminalProgressbar(nameList, "Renaming: ", 40):
 		os.rename(oldName, newName)
 
 	print("Done.")
 
 def userinteraction(path, subdirectories, dateformat, showchanges):
-	if not path:
-		path = input("\nWhere is the base directory located?\n>").lower().strip()
+	while path == None:
+		answer = input("\nWhere is the base directory located? [Working directory]\n>").lower().strip() #should use working directory if not specified
+		if answer == "":
+			path = os.path.dirname(__file__) #working directory
+		path = answer
 
 	while subdirectories == None:
 		answer = input("\nShould subdirectories be included? [y]\n>").lower().strip()
@@ -73,7 +84,7 @@ def userinteraction(path, subdirectories, dateformat, showchanges):
 			print("\nInvalid input.")
 
 	while dateformat == None:
-		answer = input("\nWhich format would you like to use? [1]\n1. YYYY-MM-DD\n2. DD-MM-YYYY\n3. YYYY-DD-MM\n>").lower().strip()
+		answer = input("\nWhich format would you like to use? [1]\n1. YYYY-MM-DD (ISO 8601 format)\n2. DD-MM-YYYY (European date format)\n3. MM-DD-YYYY (American fate format)\n>").lower().strip()
 		if answer == "1" or answer == "":
 			dateformat = "%Y-%m-%d_"
 		elif answer == "2":
