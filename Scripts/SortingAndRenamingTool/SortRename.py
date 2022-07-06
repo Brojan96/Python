@@ -1,26 +1,19 @@
 import os
 import time
 import re
-#import curses
-#from datetime import datetime
+from PythonToolbox import progressbar
 
 """
 TODO: 
-- manage user interactions
-	- Abfrage Pfad
-	- Abfrage subdirectories
-	- Abfrage Datumsformat 
-	- Show changes 
-	- Sicherheitsfrage
-- Progress Bar
+- import Progressbar from different location
 - Kommandozeilen Argumente
+- generate 10000 files at a certain location
 """
+
 yes = ["yes", "ye", "y", ""]
+no = ["no", "n"]
 
 def renaming(path, subdirectories, dateformat, showchanges) :
-	#if renaming == renaming(None, None, None, None): #this is stupid
-	#	userinteraction(path, subdirectories, dateformat, showchanges)
-
 	filelist = []
 
 	if subdirectories:
@@ -34,7 +27,7 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 				filelist.append((path, file))
 
 	nameList = []
-	if showchanges:
+	if showchanges: #this is here to create a blank line
 		print()
 
 	for root,file in filelist:
@@ -43,6 +36,10 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 			continue
 		baseName = file
 		if re.match(r"^(\d{4}-\d{2}-\d{2}_.*)$", file):
+			baseName = baseName[11:]
+		elif re.match(r"^(\d{2}-\d{2}-\d{4}_.*)$", file): 
+			baseName = baseName[11:]
+		elif re.match(r"^(\d{2}-\d{4}-\d{2}_.*)$", file): 
 			baseName = baseName[11:]
 		if showchanges:
 			print(os.path.join(root, file) + "\t=>\t" + os.path.join(root, modificationTime + baseName))
@@ -56,113 +53,45 @@ def renaming(path, subdirectories, dateformat, showchanges) :
 		if not input("\nDo you want to accept the changes above? [y]\n>").lower().strip() in yes: #maybe modify this so only yes and no are possible and other inputs return the question
 			print("Aborting... no changes were made.")
 			return -1
-	
-	"""
-	if showchanges:
-		while True:
-			answer = input("\nDo you want to accept the changes above? [y]\n>").lower().strip()
-			if answer in yes: #maybe modify this so only yes and no are possible and other inputs return the question
-				break
-			elif answer in no:
-				print("Aborting... no changes were made.")
-				break
-				return -1
-			else:
-				print("Please enter a valid response.")
-	"""
 
-	for oldName,newName in nameList:
+	for oldName,newName in progressbar(nameList, "Renaming: ", 40):
 		os.rename(oldName, newName)
+
 	print("Done.")
-			
-renaming("/home/brojan/Documents/Test", True, '%Y-%m-%d_', True)
 
 def userinteraction(path, subdirectories, dateformat, showchanges):
-	path = input("Where is the base directory located? [y]\n>").lower().strip()
-	if os.name == "dos" or "nt":
-		path = path.replace("\\", "\\\\")
-	if input("Should subdirectories be included? [y]\n>").lower().strip() in yes:
-		subdirectories = True
-	else:
-		subdirectories = False
+	if not path:
+		path = input("\nWhere is the base directory located?\n>").lower().strip()
 
-	dateformat = input("Which format would you like to use?\n1. YYYY-MM-DD \n2.DD-MM-YYYY\n3.YYYY-DD-MM [1]\n>").lower().strip()
-	if dateformat == 1:
-		dateformat = "%Y-%m-%d"
-	elif dateformat == 2:
-		dateformat = "%d-%m-%Y"
-	else:
-		dateformat = "%Y-%d-%m"
-
-	if input("Do you want to review the changes before the program executes? [y]\n>").lower().strip() in yes:
-		showchanges = True
-	else:
-		showchanges = False
-
-"""
- 	- Abfrage Pfad
-	- Abfrage subdirectories
-	- Abfrage Datumsformat 
-	- Show changes 
-	- Sicherheitsfrage
-"""
-"""
-os.path.isfile
-
-os.path.join(root,file)
-os.rename()
-
-def options() :
-	location = input ('Please name the directory in which the files, which should be renamed, are located: \n>')
-	def subdirectories_answer() : 
-		global subdirectories
-		subdirectories = input('Should the script also include the subdirectories? Please answer "yes" or "no". [y]\n>').lower().strip()
-		if(subdirectories == "yes" or subdirectories == 'y' or subdirectories == ''):
-			subdirectories = 'yes'
-		elif(subdirectories == "no" or subdirectories == 'n'):
-			subdirectories = 'no'
+	while subdirectories == None:
+		answer = input("\nShould subdirectories be included? [y]\n>").lower().strip()
+		if answer in yes:
+			subdirectories = True
+		elif answer in no:
+			subdirectories = False
 		else:
-			return subdirectories_answer()
-	subdirectories_answer()     
-	if subdirectories == 'no' :
-		filelist = []
-		for file in os.listdir(location) :
-			if os.path.isfile(os.path.join(location, file)):
-				filelist.append(file)
-		print(filelist)
-	elif subdirectories == 'yes' :
-		filelist = []
-		pathlist = []
-		for root, dirs, files in os.walk(location):
-			print(root)
-			for file in files:
-				filelist.append(file)
-				pathlist.append(os.path.join(root,file))
-	def itemcount():
-		itemamount = input(str(len(filelist)) + ' Items will be renamed. Want to see the list of files? [n]\n>').lower().strip()
-		if itemamount == 'yes' or itemamount == 'y':
-			print(filelist)
-			print(pathlist)
-		elif itemamount == 'no' or itemamount == '':
-			print()
-		else :
-			return itemcount()
-	itemcount()
-	def final_question() :
-		final = input('The files will now be renamed. Continue? Please answer "yes" or "no". [y]\n>')
-		if final == 'yes' or final == 'y' or final == '':
-			print('success')
-		elif final == 'no' or final == 'n' : 
-			quit
-			print('The script was ended.')
-		else :
-			return final_question()
-	final_question()
-	if subdirectories == 'yes' :
-		for path in pathlist :
-			os.rename(path, str(datetime.fromtimestamp(os.stat(path).st_ctime))[0:10]+' '+path)
-	elif subdirectories == 'no' :
-		for path in pathlist :
-			os.rename(path, str(datetime.fromtimestamp(os.stat(path).st_ctime))[0:10]+' '+path)
-options()
-"""
+			print("\nInvalid input.")
+
+	while dateformat == None:
+		answer = input("\nWhich format would you like to use? [1]\n1. YYYY-MM-DD\n2. DD-MM-YYYY\n3. YYYY-DD-MM\n>").lower().strip()
+		if answer == "1" or answer == "":
+			dateformat = "%Y-%m-%d_"
+		elif answer == "2":
+			dateformat = "%d-%m-%Y_"
+		elif answer == "3":
+			dateformat = "%m-%d-%Y_"
+		else:
+			print("\nInvalid input.")
+
+	while showchanges == None:
+		answer = input("\nDo you want to review the changes before the program executes? [y]\n>").lower().strip()
+		if answer in yes:
+			showchanges = True
+		elif answer in no:
+			showchanges = False
+		else:
+			print("\nInvalid input.")
+
+	renaming(path, subdirectories, dateformat, showchanges)
+
+userinteraction(None, None, None, None)
