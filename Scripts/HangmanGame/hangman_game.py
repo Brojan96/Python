@@ -12,7 +12,7 @@ TODO:
 3. Wordlist erweitern
 4. Aufhübschen (programmieren) + Init anlegen
 5. Ergebnis zeigen bei Verlust
-6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, galgen und Gesuchtes Wort fehlt noch)
+6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
 """
 
 f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
@@ -31,34 +31,34 @@ curses.noecho()
 
 def galgen(stdscr, guesses):
 	if (guesses>=1):
-		stdscr.addstr(5, 1, "/")
-		stdscr.addstr(6, 0, "/")
+		stdscr.addstr(5, curses.COLS // 2 - 4, "/")
+		stdscr.addstr(6, curses.COLS // 2 - 5, "/")
 	if (guesses >= 2):
-		stdscr.addstr(5, 3, "\\")
-		stdscr.addstr(6, 4, "\\")
+		stdscr.addstr(5, curses.COLS // 2 - 2, "\\")
+		stdscr.addstr(6, curses.COLS // 2 - 1, "\\")
 	if (guesses >= 3):
-		stdscr.addstr(4, 2, "|")
-		stdscr.addstr(3, 2, "|")
-		stdscr.addstr(2, 2, "|")
-		stdscr.addstr(1, 2, "|")
+		stdscr.addstr(4, curses.COLS // 2 - 3, "|")
+		stdscr.addstr(3, curses.COLS // 2 - 3, "|")
+		stdscr.addstr(2, curses.COLS // 2 - 3, "|")
+		stdscr.addstr(1, curses.COLS // 2 - 3, "|")
 	if (guesses>=4):
-		stdscr.addstr(0, 3, "_")
-		stdscr.addstr(0, 4, "_")
-		stdscr.addstr(0, 5, "_")
-		stdscr.addstr(0, 6, "_")
-		stdscr.addstr(0, 7, "_")
+		stdscr.addstr(0, curses.COLS // 2 - 2, "_")
+		stdscr.addstr(0, curses.COLS // 2 - 1, "_")
+		stdscr.addstr(0, curses.COLS // 2 - 0, "_")
+		stdscr.addstr(0, curses.COLS // 2 + 1, "_")
+		stdscr.addstr(0, curses.COLS // 2 + 2, "_")
 	if (guesses>=5):
-		stdscr.addstr(1, 8, "|")
+		stdscr.addstr(1, curses.COLS // 2 + 3, "|")
 	if (guesses>=6):
-		stdscr.addstr(2, 8, "o")
+		stdscr.addstr(2, curses.COLS // 2 + 3, "o")
 	if (guesses>=7):
-		stdscr.addstr(3, 8, "|")
+		stdscr.addstr(3, curses.COLS // 2 + 3, "|")
 	if (guesses>=8):
-		stdscr.addstr(4, 7, "/")
-		stdscr.addstr(4, 9, "\\")
+		stdscr.addstr(4, curses.COLS // 2 + 2, "/")
+		stdscr.addstr(4, curses.COLS // 2 + 4, "\\")
 	if (guesses>=9):
-		stdscr.addstr(2, 7, "\\")
-		stdscr.addstr(2, 9, "/")
+		stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
+		stdscr.addstr(2, curses.COLS // 2 + 4, "/")
 
 def alphabet():	
 	stdscr.addstr(11, curses.COLS // 2 - 12, "A", guessed_letters["A"])
@@ -94,7 +94,7 @@ def targetWord(stdscr):
 	for i,l in enumerate(target_word):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
-			stdscr.addstr(9, i, l, curses.color_pair(3))
+			stdscr.addstr(9, i, l, curses.color_pair(3)) #Daniel hilf mir, ohne das i zeigt er gar nichts an. :(
 
 #curses.COLS // 2 - (len(target_word)// 2)
 
