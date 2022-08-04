@@ -12,7 +12,7 @@ TODO:
 3. Wordlist erweitern
 4. Aufhübschen (programmieren) + Init anlegen
 5. Ergebnis zeigen bei Verlust
-6. Automatisches Zentrieren der Wörter und Sätze
+6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, galgen und Gesuchtes Wort fehlt noch)
 """
 
 f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
@@ -27,12 +27,7 @@ alphabet = list(string.ascii_uppercase)
 for i in alphabet:
 	guessed_letters[i] = curses.color_pair(3)
 
-#stdscr.addstr (str(guessed_letters))
-#stdscr.refresh()
-#sleep (60)
-
 curses.noecho()
-#curses.cbreak() #optional, curses will react instantly, no need to press enter
 
 def galgen(stdscr, guesses):
 	if (guesses>=1):
@@ -66,32 +61,32 @@ def galgen(stdscr, guesses):
 		stdscr.addstr(2, 9, "/")
 
 def alphabet():	
-	stdscr.addstr(11, 1, "A", guessed_letters["A"])
-	stdscr.addstr(11, 3, "B", guessed_letters["B"])
-	stdscr.addstr(11, 5, "C", guessed_letters["C"])
-	stdscr.addstr(11, 7, "D", guessed_letters["D"])
-	stdscr.addstr(11, 9, "E", guessed_letters["E"])
-	stdscr.addstr(11, 11, "F", guessed_letters["F"])
-	stdscr.addstr(11, 13, "G", guessed_letters["G"])
-	stdscr.addstr(11, 15, "H", guessed_letters["H"])
-	stdscr.addstr(11, 17, "I", guessed_letters["I"])
-	stdscr.addstr(11, 19, "J", guessed_letters["J"])
-	stdscr.addstr(11, 21, "K", guessed_letters["K"])
-	stdscr.addstr(11, 23, "L", guessed_letters["L"])
-	stdscr.addstr(11, 25, "M", guessed_letters["M"])
-	stdscr.addstr(13, 1, "N", guessed_letters["N"])
-	stdscr.addstr(13, 3, "O", guessed_letters["O"])
-	stdscr.addstr(13, 5, "P", guessed_letters["P"])
-	stdscr.addstr(13, 7, "Q", guessed_letters["Q"])
-	stdscr.addstr(13, 9, "R", guessed_letters["R"])
-	stdscr.addstr(13, 11, "S", guessed_letters["S"])
-	stdscr.addstr(13, 13, "T", guessed_letters["T"])
-	stdscr.addstr(13, 15, "U", guessed_letters["U"])
-	stdscr.addstr(13, 17, "V", guessed_letters["V"])
-	stdscr.addstr(13, 19, "W", guessed_letters["W"])
-	stdscr.addstr(13, 21, "X", guessed_letters["X"])
-	stdscr.addstr(13, 23, "Y", guessed_letters["Y"])
-	stdscr.addstr(13, 25, "Z", guessed_letters["Z"])
+	stdscr.addstr(11, curses.COLS // 2 - 12, "A", guessed_letters["A"])
+	stdscr.addstr(11, curses.COLS // 2 - 10, "B", guessed_letters["B"])
+	stdscr.addstr(11, curses.COLS // 2 - 8, "C", guessed_letters["C"])
+	stdscr.addstr(11, curses.COLS // 2 - 6, "D", guessed_letters["D"])
+	stdscr.addstr(11, curses.COLS // 2 - 4, "E", guessed_letters["E"])
+	stdscr.addstr(11, curses.COLS // 2 - 2, "F", guessed_letters["F"])
+	stdscr.addstr(11, curses.COLS // 2 - 0, "G", guessed_letters["G"])
+	stdscr.addstr(11, curses.COLS // 2 + 2, "H", guessed_letters["H"])
+	stdscr.addstr(11, curses.COLS // 2 + 4, "I", guessed_letters["I"])
+	stdscr.addstr(11, curses.COLS // 2 + 6, "J", guessed_letters["J"])
+	stdscr.addstr(11, curses.COLS // 2 + 8, "K", guessed_letters["K"])
+	stdscr.addstr(11, curses.COLS // 2 + 10, "L", guessed_letters["L"])
+	stdscr.addstr(11, curses.COLS // 2 + 12, "M", guessed_letters["M"])
+	stdscr.addstr(13, curses.COLS // 2 - 12, "N", guessed_letters["N"])
+	stdscr.addstr(13, curses.COLS // 2 - 10, "O", guessed_letters["O"])
+	stdscr.addstr(13, curses.COLS // 2 - 8, "P", guessed_letters["P"])
+	stdscr.addstr(13, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
+	stdscr.addstr(13, curses.COLS // 2 - 4, "R", guessed_letters["R"])
+	stdscr.addstr(13, curses.COLS // 2 - 2, "S", guessed_letters["S"])
+	stdscr.addstr(13, curses.COLS // 2 + 0, "T", guessed_letters["T"])
+	stdscr.addstr(13, curses.COLS // 2 + 2, "U", guessed_letters["U"])
+	stdscr.addstr(13, curses.COLS // 2 + 4, "V", guessed_letters["V"])
+	stdscr.addstr(13, curses.COLS // 2 + 6, "W", guessed_letters["W"])
+	stdscr.addstr(13, curses.COLS // 2 + 8, "X", guessed_letters["X"])
+	stdscr.addstr(13, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
+	stdscr.addstr(13, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
 
 def targetWord(stdscr):
 	finish = True
@@ -99,20 +94,25 @@ def targetWord(stdscr):
 	for i,l in enumerate(target_word):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
-			stdscr.addstr(9, 8+i, l, curses.color_pair(3))
+			stdscr.addstr(9, i, l, curses.color_pair(3))
+
+#curses.COLS // 2 - (len(target_word)// 2)
 
 		else:
-			stdscr.addstr(9, 8+i, '_', curses.color_pair(3))
+			stdscr.addstr(9, i, '_', curses.color_pair(3))
 			finish = False
-			
+
 	return finish
 
-# FUNKTION die checkt, ob der Input korrekt ist. falls ja: grünen colorcode hinterlegen, falls nein: roten hinterlegen
-# Funktion, die das Lösungswort in unterstrichen darstellt, solange diese noch nicht korrekt geraten wurden. 
-# Wenn sie dann richtig geraten werden, erscheinen die Buchstaben.
-
 def checkInput(stdscr, guesses):
-	key = stdscr.getkey().upper()
+	alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+
+	while True:
+		key = stdscr.getkey().upper()
+		if key not in alphabet:
+			continue
+		else:
+			break
 
 	if key not in target_word:
 		if guessed_letters[key] != curses.color_pair(2):
@@ -152,14 +152,14 @@ def main(stdscr):
 		galgen(stdscr, guesses)
 		alphabet()
 		targetWord(stdscr)
-		stdscr.addstr(16, 5, "You got away!", curses.color_pair(1))
+		stdscr.addstr(16, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
 		stdscr.refresh()
 
 	else:
 		galgen(stdscr, guesses)
 		alphabet()
 		targetWord(stdscr)
-		stdscr.addstr(16, 5, "You are dead, boi!", curses.color_pair(2))
+		stdscr.addstr(16, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
 		stdscr.refresh()
 	stdscr.getkey()
 
