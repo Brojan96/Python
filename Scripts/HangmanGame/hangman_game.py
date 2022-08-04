@@ -61,32 +61,32 @@ def galgen(stdscr, guesses):
 		stdscr.addstr(2, curses.COLS // 2 + 4, "/")
 
 def alphabet():	
-	stdscr.addstr(11, curses.COLS // 2 - 12, "A", guessed_letters["A"])
-	stdscr.addstr(11, curses.COLS // 2 - 10, "B", guessed_letters["B"])
-	stdscr.addstr(11, curses.COLS // 2 - 8, "C", guessed_letters["C"])
-	stdscr.addstr(11, curses.COLS // 2 - 6, "D", guessed_letters["D"])
-	stdscr.addstr(11, curses.COLS // 2 - 4, "E", guessed_letters["E"])
-	stdscr.addstr(11, curses.COLS // 2 - 2, "F", guessed_letters["F"])
-	stdscr.addstr(11, curses.COLS // 2 - 0, "G", guessed_letters["G"])
-	stdscr.addstr(11, curses.COLS // 2 + 2, "H", guessed_letters["H"])
-	stdscr.addstr(11, curses.COLS // 2 + 4, "I", guessed_letters["I"])
-	stdscr.addstr(11, curses.COLS // 2 + 6, "J", guessed_letters["J"])
-	stdscr.addstr(11, curses.COLS // 2 + 8, "K", guessed_letters["K"])
-	stdscr.addstr(11, curses.COLS // 2 + 10, "L", guessed_letters["L"])
-	stdscr.addstr(11, curses.COLS // 2 + 12, "M", guessed_letters["M"])
-	stdscr.addstr(13, curses.COLS // 2 - 12, "N", guessed_letters["N"])
-	stdscr.addstr(13, curses.COLS // 2 - 10, "O", guessed_letters["O"])
-	stdscr.addstr(13, curses.COLS // 2 - 8, "P", guessed_letters["P"])
-	stdscr.addstr(13, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
-	stdscr.addstr(13, curses.COLS // 2 - 4, "R", guessed_letters["R"])
-	stdscr.addstr(13, curses.COLS // 2 - 2, "S", guessed_letters["S"])
-	stdscr.addstr(13, curses.COLS // 2 + 0, "T", guessed_letters["T"])
-	stdscr.addstr(13, curses.COLS // 2 + 2, "U", guessed_letters["U"])
-	stdscr.addstr(13, curses.COLS // 2 + 4, "V", guessed_letters["V"])
-	stdscr.addstr(13, curses.COLS // 2 + 6, "W", guessed_letters["W"])
-	stdscr.addstr(13, curses.COLS // 2 + 8, "X", guessed_letters["X"])
-	stdscr.addstr(13, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
-	stdscr.addstr(13, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
+	stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
+	stdscr.addstr(13, curses.COLS // 2 - 10, "B", guessed_letters["B"])
+	stdscr.addstr(13, curses.COLS // 2 - 8, "C", guessed_letters["C"])
+	stdscr.addstr(13, curses.COLS // 2 - 6, "D", guessed_letters["D"])
+	stdscr.addstr(13, curses.COLS // 2 - 4, "E", guessed_letters["E"])
+	stdscr.addstr(13, curses.COLS // 2 - 2, "F", guessed_letters["F"])
+	stdscr.addstr(13, curses.COLS // 2 - 0, "G", guessed_letters["G"])
+	stdscr.addstr(13, curses.COLS // 2 + 2, "H", guessed_letters["H"])
+	stdscr.addstr(13, curses.COLS // 2 + 4, "I", guessed_letters["I"])
+	stdscr.addstr(13, curses.COLS // 2 + 6, "J", guessed_letters["J"])
+	stdscr.addstr(13, curses.COLS // 2 + 8, "K", guessed_letters["K"])
+	stdscr.addstr(13, curses.COLS // 2 + 10, "L", guessed_letters["L"])
+	stdscr.addstr(13, curses.COLS // 2 + 12, "M", guessed_letters["M"])
+	stdscr.addstr(15, curses.COLS // 2 - 12, "N", guessed_letters["N"])
+	stdscr.addstr(15, curses.COLS // 2 - 10, "O", guessed_letters["O"])
+	stdscr.addstr(15, curses.COLS // 2 - 8, "P", guessed_letters["P"])
+	stdscr.addstr(15, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
+	stdscr.addstr(15, curses.COLS // 2 - 4, "R", guessed_letters["R"])
+	stdscr.addstr(15, curses.COLS // 2 - 2, "S", guessed_letters["S"])
+	stdscr.addstr(15, curses.COLS // 2 + 0, "T", guessed_letters["T"])
+	stdscr.addstr(15, curses.COLS // 2 + 2, "U", guessed_letters["U"])
+	stdscr.addstr(15, curses.COLS // 2 + 4, "V", guessed_letters["V"])
+	stdscr.addstr(15, curses.COLS // 2 + 6, "W", guessed_letters["W"])
+	stdscr.addstr(15, curses.COLS // 2 + 8, "X", guessed_letters["X"])
+	stdscr.addstr(15, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
+	stdscr.addstr(15, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
 
 def targetWord(stdscr):
 	finish = True
@@ -105,7 +105,7 @@ def targetWord(stdscr):
 	return finish
 
 def checkInput(stdscr, guesses):
-	alphabet = ['A', 'B', 'C', 'D', 'E', 'F', 'G', 'H', 'I', 'J', 'K', 'L', 'M', 'N', 'O', 'P', 'Q', 'R', 'S', 'T', 'U', 'V', 'W', 'X', 'Y', 'Z']
+	alphabet = list(string.ascii_uppercase)
 
 	while True:
 		key = stdscr.getkey().upper()
