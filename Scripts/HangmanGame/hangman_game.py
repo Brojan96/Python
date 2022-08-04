@@ -60,7 +60,7 @@ def galgen(stdscr, guesses):
 		stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
 		stdscr.addstr(2, curses.COLS // 2 + 4, "/")
 
-def alphabet():	
+def diplayAlphabet():	
 	stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
 	stdscr.addstr(13, curses.COLS // 2 - 10, "B", guessed_letters["B"])
 	stdscr.addstr(13, curses.COLS // 2 - 8, "C", guessed_letters["C"])
@@ -99,7 +99,7 @@ def targetWord(stdscr):
 #curses.COLS // 2 - (len(target_word)// 2)
 
 		else:
-			stdscr.addstr(9, i, '_', curses.color_pair(3))
+			stdscr.addstr(9, i, '_', curses.color_pair(3)) # hier auch
 			finish = False
 
 	return finish
@@ -135,14 +135,14 @@ def main(stdscr):
 	Victory = False
 
 	stdscr.clear()
-	alphabet()
+	diplayAlphabet()
 	targetWord(stdscr)
 	stdscr.refresh()
 	
 	while guesses < 9 :
 		galgen(stdscr, guesses)
 		guesses = checkInput(stdscr, guesses)
-		alphabet()
+		diplayAlphabet()
 		Victory = targetWord(stdscr)
 		stdscr.refresh()
 		if Victory:
@@ -150,16 +150,16 @@ def main(stdscr):
 	
 	if Victory:
 		galgen(stdscr, guesses)
-		alphabet()
+		diplayAlphabet()
 		targetWord(stdscr)
-		stdscr.addstr(16, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
+		stdscr.addstr(18, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
 		stdscr.refresh()
 
 	else:
 		galgen(stdscr, guesses)
-		alphabet()
+		diplayAlphabet()
 		targetWord(stdscr)
-		stdscr.addstr(16, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
+		stdscr.addstr(18, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
 		stdscr.refresh()
 	stdscr.getkey()
 
