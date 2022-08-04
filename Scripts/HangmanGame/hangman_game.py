@@ -10,13 +10,14 @@ TODO:
 1. User Input + Graphische Darstellung
 2. Spielregeln festlegen
 3. Wordlist erweitern
-4. Aufhübschen + Init anlegen
+4. Aufhübschen (programmieren) + Init anlegen
+5. Ergebnis zeigen bei Verlust
+6. Automatisches Zentrieren der Wörter und Sätze
 """
 
 f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
 
 target_word = random.choice(f.read().splitlines()).upper()
-#target_word = target_word.upper
 guessed_letters = {}
 
 stdscr = curses.initscr()
@@ -99,9 +100,11 @@ def targetWord(stdscr):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
 			stdscr.addstr(9, 8+i, l, curses.color_pair(3))
+
 		else:
 			stdscr.addstr(9, 8+i, '_', curses.color_pair(3))
 			finish = False
+			
 	return finish
 
 # FUNKTION die checkt, ob der Input korrekt ist. falls ja: grünen colorcode hinterlegen, falls nein: roten hinterlegen
@@ -115,6 +118,7 @@ def checkInput(stdscr, guesses):
 		if guessed_letters[key] != curses.color_pair(2):
 			guessed_letters[key] = curses.color_pair(2)
 			return guesses + 1
+
 		else:
 			return guesses
 
@@ -150,6 +154,7 @@ def main(stdscr):
 		targetWord(stdscr)
 		stdscr.addstr(16, 5, "You got away!", curses.color_pair(1))
 		stdscr.refresh()
+
 	else:
 		galgen(stdscr, guesses)
 		alphabet()
