@@ -84,7 +84,7 @@ def userinteraction(path, subdirectories, dateformat, showchanges):
 			print("\nInvalid input.")
 
 	while dateformat == None:
-		answer = input("\nWhich format would you like to use? [1]\n1. YYYY-MM-DD (ISO 8601 format)\n2. DD-MM-YYYY (European date format)\n3. MM-DD-YYYY (American fate format)\n>").lower().strip()
+		answer = input("\nWhich format would you like to use? [1]\n1. YYYY-MM-DD (ISO 8601 format)\n2. DD-MM-YYYY (European date format)\n3. MM-DD-YYYY (American date format)\n>").lower().strip()
 		if answer == "1" or answer == "":
 			dateformat = "%Y-%m-%d_"
 		elif answer == "2":
@@ -95,7 +95,7 @@ def userinteraction(path, subdirectories, dateformat, showchanges):
 			print("\nInvalid input.")
 
 	while showchanges == None:
-		answer = input("\nDo you want to review the changes before the program executes? [y]\n>").lower().strip()
+		answer = input("\nDo you want to review the changes before the program executes? [y]\n>").lower().strip() #maybe change american to anglo
 		if answer in yes:
 			showchanges = True
 		elif answer in no:
