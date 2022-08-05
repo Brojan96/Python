@@ -10,9 +10,7 @@ TODO:
 1. User Input + Graphische Darstellung
 2. Spielregeln festlegen
 3. Aufhübschen (programmieren) + Init anlegen
-4. Ergebnis zeigen bei Verlust
-5. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... 
-ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
+4. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
 """
 stdscr = curses.initscr()
 curses.start_color()
@@ -86,29 +84,30 @@ def diplayAlphabet():
 	stdscr.addstr(15, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
 	stdscr.addstr(15, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
 
-def targetWord(stdscr):
+def targetWord(stdscr, gameover):
 	finish = True
 
 	for i,l in enumerate(target_word):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
-			stdscr.addstr(9, i, l, curses.color_pair(3)) #Daniel hilf mir, ohne das i zeigt er gar nichts an. :(
-
-#curses.COLS // 2 - (len(target_word)// 2)
-		
+			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3)) #Daniel hilf mir :(
+	
 		else:
-			stdscr.addstr(9, i, '_', curses.color_pair(3)) # hier auch
+			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, '_', curses.color_pair(3)) # hier auch
 			finish = False
+
+	if gameover == "Win":
+		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(1))
+
+	elif gameover == "Lose":
+		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2))
 
 	return finish
 
 def checkInput(stdscr, guesses):
-	while True:
+	key = None
+	while key not in alphabet:
 		key = stdscr.getkey().upper()
-		if key not in alphabet:
-			continue
-		else:
-			break
 
 	if key not in target_word:
 		if guessed_letters[key] != curses.color_pair(2):
@@ -132,14 +131,14 @@ def main(stdscr):
 
 	stdscr.clear()
 	diplayAlphabet()
-	targetWord(stdscr)
+	targetWord(stdscr, None)
 	stdscr.refresh()
 	
 	while guesses < 9 :
 		galgen(stdscr, guesses)
 		guesses = checkInput(stdscr, guesses)
 		diplayAlphabet()
-		Victory = targetWord(stdscr)
+		Victory = targetWord(stdscr, None)
 		stdscr.refresh()
 		if Victory:
 			break
@@ -147,14 +146,14 @@ def main(stdscr):
 	if Victory:
 		galgen(stdscr, guesses)
 		diplayAlphabet()
-		targetWord(stdscr)
+		targetWord(stdscr, "Win")
 		stdscr.addstr(18, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
 		stdscr.refresh()
 
 	else:
 		galgen(stdscr, guesses)
 		diplayAlphabet()
-		targetWord(stdscr)
+		targetWord(stdscr, "Lose")
 		stdscr.addstr(18, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
 		stdscr.refresh()
 	stdscr.getkey()
