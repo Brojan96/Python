@@ -14,10 +14,9 @@ TODO:
 5. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... 
 ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
 """
-
+stdscr = curses.initscr()
 curses.start_color()
 curses.noecho()
-stdscr = curses.initscr()
 
 f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
 
