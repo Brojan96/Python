@@ -9,12 +9,12 @@ import string
 TODO: 
 1. User Input + Graphische Darstellung
 2. Spielregeln festlegen
-3. Wordlist erweitern
-4. Aufhübschen (programmieren) + Init anlegen
-5. Ergebnis zeigen bei Verlust
-6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... 
+3. Aufhübschen (programmieren) + Init anlegen
+4. Ergebnis zeigen bei Verlust
+5. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... 
 ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
 """
+
 curses.start_color()
 curses.noecho()
 stdscr = curses.initscr()
