@@ -12,22 +12,21 @@ TODO:
 3. Wordlist erweitern
 4. Aufhübschen (programmieren) + Init anlegen
 5. Ergebnis zeigen bei Verlust
-6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
+6. Automatisches Zentrieren der Wörter und Sätze (semi-fertig, Gesuchtes Wort fehlt noch... 
+ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
 """
+curses.start_color()
+curses.noecho()
+stdscr = curses.initscr()
 
 f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
 
 target_word = random.choice(f.read().splitlines()).upper()
 guessed_letters = {}
 
-stdscr = curses.initscr()
-curses.start_color()
-
 alphabet = list(string.ascii_uppercase)
 for i in alphabet:
 	guessed_letters[i] = curses.color_pair(3)
-
-curses.noecho()
 
 def galgen(stdscr, guesses):
 	if (guesses>=1):
@@ -97,7 +96,7 @@ def targetWord(stdscr):
 			stdscr.addstr(9, i, l, curses.color_pair(3)) #Daniel hilf mir, ohne das i zeigt er gar nichts an. :(
 
 #curses.COLS // 2 - (len(target_word)// 2)
-
+		
 		else:
 			stdscr.addstr(9, i, '_', curses.color_pair(3)) # hier auch
 			finish = False
@@ -105,8 +104,6 @@ def targetWord(stdscr):
 	return finish
 
 def checkInput(stdscr, guesses):
-	alphabet = list(string.ascii_uppercase)
-
 	while True:
 		key = stdscr.getkey().upper()
 		if key not in alphabet:
