@@ -10,7 +10,8 @@ TODO:
 1. User Input + Graphische Darstellung
 2. Spielregeln festlegen
 3. Aufhübschen (programmieren) + Init anlegen
-4. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
+4. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)`
+5. Create a main menu, where you can choose the difficulty of the wordlist.
 """
 stdscr = curses.initscr()
 curses.start_color()
