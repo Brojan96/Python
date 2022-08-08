@@ -2,14 +2,16 @@ import curses
 from curses import wrapper
 import random
 import string
+import time
+from tkinter import EXCEPTION
 
 """
 TODO: 
-1. User Input + Graphische Darstellung
-2. Spielregeln festlegen
-3. Aufhübschen (programmieren) + Init anlegen
-4. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)`
-5. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
+1. Aufhübschen (programmieren) + Init anlegen
+2. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
+3. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
+4. Error Handling für alle Funktionen einführen
+5. Mache mich zum Objekt, baby... ;P (Projekt objekt-orientiert umsetzen)
 """
 stdscr = curses.initscr()
 curses.start_color()
@@ -55,33 +57,42 @@ def galgen(stdscr, guesses):
 		stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
 		stdscr.addstr(2, curses.COLS // 2 + 4, "/")
 
-def diplayAlphabet():	
-	stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
-	stdscr.addstr(13, curses.COLS // 2 - 10, "B", guessed_letters["B"])
-	stdscr.addstr(13, curses.COLS // 2 - 8, "C", guessed_letters["C"])
-	stdscr.addstr(13, curses.COLS // 2 - 6, "D", guessed_letters["D"])
-	stdscr.addstr(13, curses.COLS // 2 - 4, "E", guessed_letters["E"])
-	stdscr.addstr(13, curses.COLS // 2 - 2, "F", guessed_letters["F"])
-	stdscr.addstr(13, curses.COLS // 2 - 0, "G", guessed_letters["G"])
-	stdscr.addstr(13, curses.COLS // 2 + 2, "H", guessed_letters["H"])
-	stdscr.addstr(13, curses.COLS // 2 + 4, "I", guessed_letters["I"])
-	stdscr.addstr(13, curses.COLS // 2 + 6, "J", guessed_letters["J"])
-	stdscr.addstr(13, curses.COLS // 2 + 8, "K", guessed_letters["K"])
-	stdscr.addstr(13, curses.COLS // 2 + 10, "L", guessed_letters["L"])
-	stdscr.addstr(13, curses.COLS // 2 + 12, "M", guessed_letters["M"])
-	stdscr.addstr(15, curses.COLS // 2 - 12, "N", guessed_letters["N"])
-	stdscr.addstr(15, curses.COLS // 2 - 10, "O", guessed_letters["O"])
-	stdscr.addstr(15, curses.COLS // 2 - 8, "P", guessed_letters["P"])
-	stdscr.addstr(15, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
-	stdscr.addstr(15, curses.COLS // 2 - 4, "R", guessed_letters["R"])
-	stdscr.addstr(15, curses.COLS // 2 - 2, "S", guessed_letters["S"])
-	stdscr.addstr(15, curses.COLS // 2 + 0, "T", guessed_letters["T"])
-	stdscr.addstr(15, curses.COLS // 2 + 2, "U", guessed_letters["U"])
-	stdscr.addstr(15, curses.COLS // 2 + 4, "V", guessed_letters["V"])
-	stdscr.addstr(15, curses.COLS // 2 + 6, "W", guessed_letters["W"])
-	stdscr.addstr(15, curses.COLS // 2 + 8, "X", guessed_letters["X"])
-	stdscr.addstr(15, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
-	stdscr.addstr(15, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
+def diplayAlphabet():
+	while True:
+		try:
+			stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
+			stdscr.addstr(13, curses.COLS // 2 - 10, "B", guessed_letters["B"])
+			stdscr.addstr(13, curses.COLS // 2 - 8, "C", guessed_letters["C"])
+			stdscr.addstr(13, curses.COLS // 2 - 6, "D", guessed_letters["D"])
+			stdscr.addstr(13, curses.COLS // 2 - 4, "E", guessed_letters["E"])
+			stdscr.addstr(13, curses.COLS // 2 - 2, "F", guessed_letters["F"])
+			stdscr.addstr(13, curses.COLS // 2 - 0, "G", guessed_letters["G"])
+			stdscr.addstr(13, curses.COLS // 2 + 2, "H", guessed_letters["H"])
+			stdscr.addstr(13, curses.COLS // 2 + 4, "I", guessed_letters["I"])
+			stdscr.addstr(13, curses.COLS // 2 + 6, "J", guessed_letters["J"])
+			stdscr.addstr(13, curses.COLS // 2 + 8, "K", guessed_letters["K"])
+			stdscr.addstr(13, curses.COLS // 2 + 10, "L", guessed_letters["L"])
+			stdscr.addstr(13, curses.COLS // 2 + 12, "M", guessed_letters["M"])
+			stdscr.addstr(15, curses.COLS // 2 - 12, "N", guessed_letters["N"])
+			stdscr.addstr(15, curses.COLS // 2 - 10, "O", guessed_letters["O"])
+			stdscr.addstr(15, curses.COLS // 2 - 8, "P", guessed_letters["P"])
+			stdscr.addstr(15, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
+			stdscr.addstr(15, curses.COLS // 2 - 4, "R", guessed_letters["R"])
+			stdscr.addstr(15, curses.COLS // 2 - 2, "S", guessed_letters["S"])
+			stdscr.addstr(15, curses.COLS // 2 + 0, "T", guessed_letters["T"])
+			stdscr.addstr(15, curses.COLS // 2 + 2, "U", guessed_letters["U"])
+			stdscr.addstr(15, curses.COLS // 2 + 4, "V", guessed_letters["V"])
+			stdscr.addstr(15, curses.COLS // 2 + 6, "W", guessed_letters["W"])
+			stdscr.addstr(15, curses.COLS // 2 + 8, "X", guessed_letters["X"])
+			stdscr.addstr(15, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
+			stdscr.addstr(15, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
+			break
+		except curses.error:
+			stdscr.erase()
+			stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
+			stdscr.refresh()
+			stdscr.getkey()
+			stdscr.erase()
 
 def targetWord(stdscr, gameover):
 	finish = True
@@ -97,10 +108,10 @@ def targetWord(stdscr, gameover):
 	for i,l in enumerate(target_word):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
-			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3)) #Daniel hilf mir :(
+			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3))
 	
 		else:
-			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, '_', curses.color_pair(3)) # hier auch
+			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, '_', curses.color_pair(3))
 			finish = False
 
 	return finish
