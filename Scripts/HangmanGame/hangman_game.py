@@ -1,8 +1,6 @@
 import curses
 from curses import wrapper
 import random
-from time import sleep
-from turtle import color
 import string
 
 """
