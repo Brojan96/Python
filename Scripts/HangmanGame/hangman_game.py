@@ -11,7 +11,7 @@ TODO:
 2. Spielregeln festlegen
 3. Aufhübschen (programmieren) + Init anlegen
 4. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)`
-5. Create a main menu, where you can choose the difficulty of the wordlist.
+5. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
 """
 stdscr = curses.initscr()
 curses.start_color()
@@ -88,6 +88,14 @@ def diplayAlphabet():
 def targetWord(stdscr, gameover):
 	finish = True
 
+	if gameover == "Win":
+		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(1))
+		return finish
+
+	elif gameover == "Lose":
+		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2))
+		return finish
+
 	for i,l in enumerate(target_word):
 		L = l.upper()
 		if guessed_letters[L] == curses.color_pair(1):
@@ -96,12 +104,6 @@ def targetWord(stdscr, gameover):
 		else:
 			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, '_', curses.color_pair(3)) # hier auch
 			finish = False
-
-	if gameover == "Win":
-		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(1))
-
-	elif gameover == "Lose":
-		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2))
 
 	return finish
 
