@@ -8,6 +8,7 @@ TODO:
 - import Progressbar from different location
 - Kommandozeilen Argumente
 - generate 10000 files at a certain location
+- option to remove the date entirely
 """
 
 yes = ["yes", "ye", "y", ""]
@@ -105,4 +106,4 @@ def userinteraction(path, subdirectories, dateformat, showchanges):
 
 	renaming(path, subdirectories, dateformat, showchanges)
 
-userinteraction(None, None, None, None)
+userinteraction('/home/brojan/Programming/test', 'n', '%d-%m-%Y_', 'y')
