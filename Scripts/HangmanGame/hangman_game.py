@@ -2,8 +2,6 @@ import curses
 from curses import wrapper
 import random
 import string
-import time
-from tkinter import EXCEPTION
 
 """
 TODO: 
