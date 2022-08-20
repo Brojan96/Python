@@ -8,10 +8,8 @@ from tkinter import EXCEPTION
 """
 TODO: 
 1. Aufhübschen (programmieren) + Init anlegen
-2. Automatisches Zentrieren der Wörter und Sätze (fertig... ggf. noch die Zeilenhöhe zentrieren via curses.LINES // 2)
-3. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
-4. Error Handling für alle Funktionen einführen
-5. Mache mich zum Objekt, baby... ;P (Projekt objekt-orientiert umsetzen)
+2. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
+3. Mache mich zum Objekt, baby... ;P (Projekt objekt-orientiert umsetzen)
 """
 stdscr = curses.initscr()
 curses.start_color()
@@ -27,35 +25,45 @@ for i in alphabet:
 	guessed_letters[i] = curses.color_pair(3)
 
 def galgen(stdscr, guesses):
-	if (guesses>=1):
-		stdscr.addstr(5, curses.COLS // 2 - 4, "/")
-		stdscr.addstr(6, curses.COLS // 2 - 5, "/")
-	if (guesses >= 2):
-		stdscr.addstr(5, curses.COLS // 2 - 2, "\\")
-		stdscr.addstr(6, curses.COLS // 2 - 1, "\\")
-	if (guesses >= 3):
-		stdscr.addstr(4, curses.COLS // 2 - 3, "|")
-		stdscr.addstr(3, curses.COLS // 2 - 3, "|")
-		stdscr.addstr(2, curses.COLS // 2 - 3, "|")
-		stdscr.addstr(1, curses.COLS // 2 - 3, "|")
-	if (guesses>=4):
-		stdscr.addstr(0, curses.COLS // 2 - 2, "_")
-		stdscr.addstr(0, curses.COLS // 2 - 1, "_")
-		stdscr.addstr(0, curses.COLS // 2 - 0, "_")
-		stdscr.addstr(0, curses.COLS // 2 + 1, "_")
-		stdscr.addstr(0, curses.COLS // 2 + 2, "_")
-	if (guesses>=5):
-		stdscr.addstr(1, curses.COLS // 2 + 3, "|")
-	if (guesses>=6):
-		stdscr.addstr(2, curses.COLS // 2 + 3, "o")
-	if (guesses>=7):
-		stdscr.addstr(3, curses.COLS // 2 + 3, "|")
-	if (guesses>=8):
-		stdscr.addstr(4, curses.COLS // 2 + 2, "/")
-		stdscr.addstr(4, curses.COLS // 2 + 4, "\\")
-	if (guesses>=9):
-		stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
-		stdscr.addstr(2, curses.COLS // 2 + 4, "/")
+	while True:
+		try:	
+			if (guesses>=1):
+				stdscr.addstr(5, curses.COLS // 2 - 4, "/")
+				stdscr.addstr(6, curses.COLS // 2 - 5, "/")
+			if (guesses >= 2):
+				stdscr.addstr(5, curses.COLS // 2 - 2, "\\")
+				stdscr.addstr(6, curses.COLS // 2 - 1, "\\")
+			if (guesses >= 3):
+				stdscr.addstr(4, curses.COLS // 2 - 3, "|")
+				stdscr.addstr(3, curses.COLS // 2 - 3, "|")
+				stdscr.addstr(2, curses.COLS // 2 - 3, "|")
+				stdscr.addstr(1, curses.COLS // 2 - 3, "|")
+			if (guesses>=4):
+				stdscr.addstr(0, curses.COLS // 2 - 2, "_")
+				stdscr.addstr(0, curses.COLS // 2 - 1, "_")
+				stdscr.addstr(0, curses.COLS // 2 - 0, "_")
+				stdscr.addstr(0, curses.COLS // 2 + 1, "_")
+				stdscr.addstr(0, curses.COLS // 2 + 2, "_")
+			if (guesses>=5):
+				stdscr.addstr(1, curses.COLS // 2 + 3, "|")
+			if (guesses>=6):
+				stdscr.addstr(2, curses.COLS // 2 + 3, "o")
+			if (guesses>=7):
+				stdscr.addstr(3, curses.COLS // 2 + 3, "|")
+			if (guesses>=8):
+				stdscr.addstr(4, curses.COLS // 2 + 2, "/")
+				stdscr.addstr(4, curses.COLS // 2 + 4, "\\")
+			if (guesses>=9):
+				stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
+				stdscr.addstr(2, curses.COLS // 2 + 4, "/")
+			break
+		except curses.error:
+			stdscr.erase()
+			stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
+			stdscr.refresh()
+			stdscr.getkey()
+			stdscr.erase()
+
 
 def diplayAlphabet():
 	while True:
@@ -102,7 +110,13 @@ def targetWord(stdscr, gameover):
 		return finish
 
 	elif gameover == "Lose":
-		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2))
+		#stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2)) old version
+		for i,l in enumerate(target_word):
+			L = l.upper()
+			if guessed_letters[L] == curses.color_pair(1):
+				stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3))
+			else:
+				stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.A_UNDERLINE + curses.color_pair(2))
 		return finish
 
 	for i,l in enumerate(target_word):
