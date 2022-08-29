@@ -158,6 +158,7 @@ class Hangman:
 				break
 		
 		self.galgen()
+		self.displayTargetWord()
 		self.stdscr.refresh()
 		self.stdscr.getkey()
 
@@ -165,5 +166,5 @@ class Hangman:
 		wrapper(self.main)
 
 if __name__=="__main__":
-	hangman = Hangman("DANIEL")
+	hangman = Hangman("CHANGE_ME")
 	hangman.runGame()
