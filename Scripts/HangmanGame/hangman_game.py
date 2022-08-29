@@ -1,187 +1,169 @@
 import curses
-from curses import wrapper
-import random
 import string
+from curses import wrapper
 
-"""
-TODO: 
-1. Aufhübschen (programmieren) + Init anlegen
-2. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
-3. Mache mich zum Objekt, baby... ;P (Projekt objekt-orientiert umsetzen)
-"""
+class Hangman:
+	def __init__(self, targetWord):
+		self.targetWord = targetWord
+		self.guessedLetters = {}
 
-curses.initscr()
-curses.start_color()
-curses.noecho()
+		curses.initscr()
+		curses.start_color()
+		curses.noecho()
+		
+		self.alphabet = list(string.ascii_uppercase)
+		for i in self.alphabet:
+			self.guessedLetters[i] = curses.color_pair(3)
+		
+		self.guesses = 0
+		self.maxGuesses = 9
 
-f = open ("E:\\OneDrive\\Programming\\Python\\Scripts\\HangmanGame\\wordlist.txt", "r")
-
-target_word = random.choice(f.read().splitlines()).upper()
-guessed_letters = {}
-
-alphabet = list(string.ascii_uppercase)
-for i in alphabet:
-	guessed_letters[i] = curses.color_pair(3)
-
-def galgen(stdscr, guesses):
-	while True:
-		try:	
-			if (guesses>=1):
-				stdscr.addstr(5, curses.COLS // 2 - 4, "/")
-				stdscr.addstr(6, curses.COLS // 2 - 5, "/")
-			if (guesses >= 2):
-				stdscr.addstr(5, curses.COLS // 2 - 2, "\\")
-				stdscr.addstr(6, curses.COLS // 2 - 1, "\\")
-			if (guesses >= 3):
-				stdscr.addstr(4, curses.COLS // 2 - 3, "|")
-				stdscr.addstr(3, curses.COLS // 2 - 3, "|")
-				stdscr.addstr(2, curses.COLS // 2 - 3, "|")
-				stdscr.addstr(1, curses.COLS // 2 - 3, "|")
-			if (guesses>=4):
-				stdscr.addstr(0, curses.COLS // 2 - 2, "_")
-				stdscr.addstr(0, curses.COLS // 2 - 1, "_")
-				stdscr.addstr(0, curses.COLS // 2 - 0, "_")
-				stdscr.addstr(0, curses.COLS // 2 + 1, "_")
-				stdscr.addstr(0, curses.COLS // 2 + 2, "_")
-			if (guesses>=5):
-				stdscr.addstr(1, curses.COLS // 2 + 3, "|")
-			if (guesses>=6):
-				stdscr.addstr(2, curses.COLS // 2 + 3, "o")
-			if (guesses>=7):
-				stdscr.addstr(3, curses.COLS // 2 + 3, "|")
-			if (guesses>=8):
-				stdscr.addstr(4, curses.COLS // 2 + 2, "/")
-				stdscr.addstr(4, curses.COLS // 2 + 4, "\\")
-			if (guesses>=9):
-				stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
-				stdscr.addstr(2, curses.COLS // 2 + 4, "/")
-			break
-		except curses.error:
-			stdscr.erase()
-			stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
-			stdscr.refresh()
-			stdscr.getkey()
-			stdscr.erase()
-
-
-def diplayAlphabet(stdscr):
-	while True:
-		try:
-			stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
-			stdscr.addstr(13, curses.COLS // 2 - 10, "B", guessed_letters["B"])
-			stdscr.addstr(13, curses.COLS // 2 - 8, "C", guessed_letters["C"])
-			stdscr.addstr(13, curses.COLS // 2 - 6, "D", guessed_letters["D"])
-			stdscr.addstr(13, curses.COLS // 2 - 4, "E", guessed_letters["E"])
-			stdscr.addstr(13, curses.COLS // 2 - 2, "F", guessed_letters["F"])
-			stdscr.addstr(13, curses.COLS // 2 - 0, "G", guessed_letters["G"])
-			stdscr.addstr(13, curses.COLS // 2 + 2, "H", guessed_letters["H"])
-			stdscr.addstr(13, curses.COLS // 2 + 4, "I", guessed_letters["I"])
-			stdscr.addstr(13, curses.COLS // 2 + 6, "J", guessed_letters["J"])
-			stdscr.addstr(13, curses.COLS // 2 + 8, "K", guessed_letters["K"])
-			stdscr.addstr(13, curses.COLS // 2 + 10, "L", guessed_letters["L"])
-			stdscr.addstr(13, curses.COLS // 2 + 12, "M", guessed_letters["M"])
-			stdscr.addstr(15, curses.COLS // 2 - 12, "N", guessed_letters["N"])
-			stdscr.addstr(15, curses.COLS // 2 - 10, "O", guessed_letters["O"])
-			stdscr.addstr(15, curses.COLS // 2 - 8, "P", guessed_letters["P"])
-			stdscr.addstr(15, curses.COLS // 2 - 6, "Q", guessed_letters["Q"])
-			stdscr.addstr(15, curses.COLS // 2 - 4, "R", guessed_letters["R"])
-			stdscr.addstr(15, curses.COLS // 2 - 2, "S", guessed_letters["S"])
-			stdscr.addstr(15, curses.COLS // 2 + 0, "T", guessed_letters["T"])
-			stdscr.addstr(15, curses.COLS // 2 + 2, "U", guessed_letters["U"])
-			stdscr.addstr(15, curses.COLS // 2 + 4, "V", guessed_letters["V"])
-			stdscr.addstr(15, curses.COLS // 2 + 6, "W", guessed_letters["W"])
-			stdscr.addstr(15, curses.COLS // 2 + 8, "X", guessed_letters["X"])
-			stdscr.addstr(15, curses.COLS // 2 + 10, "Y", guessed_letters["Y"])
-			stdscr.addstr(15, curses.COLS // 2 + 12, "Z", guessed_letters["Z"])
-			break
-		except curses.error:
-			stdscr.erase()
-			stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
-			stdscr.refresh()
-			stdscr.getkey()
-			stdscr.erase()
-
-def targetWord(stdscr, gameover):
-	finish = True
-
-	if gameover == "Win":
-		stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(1))
-		return finish
-
-	elif gameover == "Lose":
-		#stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2), target_word, curses.color_pair(2)) old version
-		for i,l in enumerate(target_word):
-			L = l.upper()
-			if guessed_letters[L] == curses.color_pair(1):
-				stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3))
-			else:
-				stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.A_UNDERLINE + curses.color_pair(2))
-		return finish
-
-	for i,l in enumerate(target_word):
-		L = l.upper()
-		if guessed_letters[L] == curses.color_pair(1):
-			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, l, curses.color_pair(3))
+	def galgen(self):
+		while True:
+			try:	
+				if (self.guesses >= 1):
+					self.stdscr.addstr(5, curses.COLS // 2 - 4, "/")
+					self.stdscr.addstr(6, curses.COLS // 2 - 5, "/")
+				if (self.guesses >= 2):
+					self.stdscr.addstr(5, curses.COLS // 2 - 2, "\\")
+					self.stdscr.addstr(6, curses.COLS // 2 - 1, "\\")
+				if (self.guesses >= 3):
+					self.stdscr.addstr(4, curses.COLS // 2 - 3, "|")
+					self.stdscr.addstr(3, curses.COLS // 2 - 3, "|")
+					self.stdscr.addstr(2, curses.COLS // 2 - 3, "|")
+					self.stdscr.addstr(1, curses.COLS // 2 - 3, "|")
+				if (self.guesses>=4):
+					self.stdscr.addstr(0, curses.COLS // 2 - 2, "_")
+					self.stdscr.addstr(0, curses.COLS // 2 - 1, "_")
+					self.stdscr.addstr(0, curses.COLS // 2 - 0, "_")
+					self.stdscr.addstr(0, curses.COLS // 2 + 1, "_")
+					self.stdscr.addstr(0, curses.COLS // 2 + 2, "_")
+				if (self.guesses>=5):
+					self.stdscr.addstr(1, curses.COLS // 2 + 3, "|")
+				if (self.guesses>=6):
+					self.stdscr.addstr(2, curses.COLS // 2 + 3, "o")
+				if (self.guesses>=7):
+					self.stdscr.addstr(3, curses.COLS // 2 + 3, "|")
+				if (self.guesses>=8):
+					self.stdscr.addstr(4, curses.COLS // 2 + 2, "/")
+					self.stdscr.addstr(4, curses.COLS // 2 + 4, "\\")
+				if (self.guesses>=9):
+					self.stdscr.addstr(2, curses.COLS // 2 + 2, "\\")
+					self.stdscr.addstr(2, curses.COLS // 2 + 4, "/")
+				break
+			except curses.error:
+				self.stdscr.erase()
+				self.stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
+				self.stdscr.refresh()
+				self.stdscr.getkey()
+				self.stdscr.erase()
 	
-		else:
-			stdscr.addstr(9, curses.COLS // 2 - (len(target_word) // 2) + i, '_', curses.color_pair(3))
-			finish = False
+	def displayAlphabet(self):
+		while True:
+			try:
+				self.stdscr.addstr(13, curses.COLS // 2 - 12, "A", self.guessedLetters["A"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 10, "B", self.guessedLetters["B"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 8, "C", self.guessedLetters["C"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 6, "D", self.guessedLetters["D"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 4, "E", self.guessedLetters["E"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 2, "F", self.guessedLetters["F"])
+				self.stdscr.addstr(13, curses.COLS // 2 - 0, "G", self.guessedLetters["G"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 2, "H", self.guessedLetters["H"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 4, "I", self.guessedLetters["I"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 6, "J", self.guessedLetters["J"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 8, "K", self.guessedLetters["K"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 10, "L", self.guessedLetters["L"])
+				self.stdscr.addstr(13, curses.COLS // 2 + 12, "M", self.guessedLetters["M"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 12, "N", self.guessedLetters["N"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 10, "O", self.guessedLetters["O"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 8, "P", self.guessedLetters["P"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 6, "Q", self.guessedLetters["Q"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 4, "R", self.guessedLetters["R"])
+				self.stdscr.addstr(15, curses.COLS // 2 - 2, "S", self.guessedLetters["S"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 0, "T", self.guessedLetters["T"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 2, "U", self.guessedLetters["U"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 4, "V", self.guessedLetters["V"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 6, "W", self.guessedLetters["W"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 8, "X", self.guessedLetters["X"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 10, "Y", self.guessedLetters["Y"])
+				self.stdscr.addstr(15, curses.COLS // 2 + 12, "Z", self.guessedLetters["Z"])
+				break
+			
+			except curses.error:
+				self.stdscr.erase()
+				self.stdscr.addstr(0, 0, "Error, the console is too small. Please enlarge it to atleast 25 lines and columns and press a key afterwards.", curses.color_pair(3))
+				self.stdscr.refresh()
+				self.stdscr.getkey()
+				self.stdscr.erase()	
 
-	return finish
-
-def checkInput(stdscr, guesses):
-	key = None
-	while key not in alphabet:
-		key = stdscr.getkey().upper()
-
-	if key not in target_word:
-		if guessed_letters[key] != curses.color_pair(2):
-			guessed_letters[key] = curses.color_pair(2)
-			return guesses + 1
+	def displayTargetWord(self):
+		if self.victory:
+			self.stdscr.addstr(9, curses.COLS // 2 - (len(self.targetWord) // 2), self.targetWord, curses.color_pair(1))
+			self.stdscr.addstr(18, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
+		
+		elif self.guesses >= self.maxGuesses:
+			for i,l in enumerate(self.targetWord):
+				L = l.upper()
+				if self.guessedLetters[L] == curses.color_pair(1):
+					self.stdscr.addstr(9, curses.COLS // 2 - (len(self.targetWord) // 2) + i, l, curses.color_pair(3))
+				else:
+					self.stdscr.addstr(9, curses.COLS // 2 - (len(self.targetWord) // 2) + i, l, curses.A_UNDERLINE + curses.color_pair(2))
+			self.stdscr.addstr(18, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
 
 		else:
-			return guesses
+			finish = True
+			for i,l in enumerate(self.targetWord):
+				L = l.upper()
+				if self.guessedLetters[L] == curses.color_pair(1):
+					self.stdscr.addstr(9, curses.COLS // 2 - (len(self.targetWord) // 2) + i, l, curses.color_pair(3))
+			
+				else:
+					self.stdscr.addstr(9, curses.COLS // 2 - (len(self.targetWord) // 2) + i, '_', curses.color_pair(3))
+					finish = False
+			self.victory = finish
 
-	else:
-		guessed_letters[key] = curses.color_pair(1)
-		return guesses
+	def checkInput(self):
+		key = None
+		while key not in self.alphabet:
+			key = self.stdscr.getkey().upper()
 
-def main(stdscr):
-	curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
-	curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
-	curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
+		if key not in self.targetWord:
+			if self.guessedLetters[key] != curses.color_pair(2):
+				self.guessedLetters[key] = curses.color_pair(2)
+				self.guesses += 1
 
-	guesses = 0
-	Victory = False
+		else:
+			self.guessedLetters[key] = curses.color_pair(1)
 
-	stdscr.clear()
-	diplayAlphabet(stdscr)
-	targetWord(stdscr, None)
-	stdscr.refresh()
-	
-	while guesses < 9 :
-		galgen(stdscr, guesses)
-		guesses = checkInput(stdscr, guesses)
-		diplayAlphabet(stdscr)
-		Victory = targetWord(stdscr, None)
-		stdscr.refresh()
-		if Victory:
-			break
-	
-	if Victory:
-		galgen(stdscr, guesses)
-		diplayAlphabet(stdscr)
-		targetWord(stdscr, "Win")
-		stdscr.addstr(18, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
-		stdscr.refresh()
+	def main(self, stdscr):
+		curses.init_pair(1, curses.COLOR_GREEN, curses.COLOR_BLACK)
+		curses.init_pair(2, curses.COLOR_RED, curses.COLOR_BLACK)
+		curses.init_pair(3, curses.COLOR_WHITE, curses.COLOR_BLACK)
+		
+		self.victory = False
+		self.stdscr = stdscr
 
-	else:
-		galgen(stdscr, guesses)
-		diplayAlphabet(stdscr)
-		targetWord(stdscr, "Lose")
-		stdscr.addstr(18, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
-		stdscr.refresh()
-	stdscr.getkey()
+		self.stdscr.clear()
+		self.displayAlphabet()
+		self.displayTargetWord()
+		self.stdscr.refresh()
+		
+		while self.guesses < self.maxGuesses:
+			self.galgen()
+			self.checkInput()
+			self.displayAlphabet()
+			self.displayTargetWord()
+			self.stdscr.refresh()
+			if self.victory:
+				break
+		
+		self.galgen()
+		self.stdscr.refresh()
+		self.stdscr.getkey()
+
+	def runGame(self):
+		wrapper(self.main)
 
 if __name__=="__main__":
-	wrapper(main)
+	hangman = Hangman("DANIEL")
+	hangman.runGame()
