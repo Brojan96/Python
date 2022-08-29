@@ -9,7 +9,8 @@ TODO:
 2. Create a main menu, where you can choose the difficulty of the wordlist. (done, just needs to be embedded into the main script)
 3. Mache mich zum Objekt, baby... ;P (Projekt objekt-orientiert umsetzen)
 """
-stdscr = curses.initscr()
+
+curses.initscr()
 curses.start_color()
 curses.noecho()
 
@@ -63,7 +64,7 @@ def galgen(stdscr, guesses):
 			stdscr.erase()
 
 
-def diplayAlphabet():
+def diplayAlphabet(stdscr):
 	while True:
 		try:
 			stdscr.addstr(13, curses.COLS // 2 - 12, "A", guessed_letters["A"])
@@ -154,14 +155,14 @@ def main(stdscr):
 	Victory = False
 
 	stdscr.clear()
-	diplayAlphabet()
+	diplayAlphabet(stdscr)
 	targetWord(stdscr, None)
 	stdscr.refresh()
 	
 	while guesses < 9 :
 		galgen(stdscr, guesses)
 		guesses = checkInput(stdscr, guesses)
-		diplayAlphabet()
+		diplayAlphabet(stdscr)
 		Victory = targetWord(stdscr, None)
 		stdscr.refresh()
 		if Victory:
@@ -169,14 +170,14 @@ def main(stdscr):
 	
 	if Victory:
 		galgen(stdscr, guesses)
-		diplayAlphabet()
+		diplayAlphabet(stdscr)
 		targetWord(stdscr, "Win")
 		stdscr.addstr(18, curses.COLS // 2 - len("You got away!") // 2, "You got away!", curses.color_pair(1))
 		stdscr.refresh()
 
 	else:
 		galgen(stdscr, guesses)
-		diplayAlphabet()
+		diplayAlphabet(stdscr)
 		targetWord(stdscr, "Lose")
 		stdscr.addstr(18, curses.COLS // 2 - len("You are dead, boi!") // 2, "You are dead, boi!", curses.color_pair(2))
 		stdscr.refresh()
