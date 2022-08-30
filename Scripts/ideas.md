@@ -104,3 +104,17 @@
 10. a Website price comparison tool, like this: [example](https://www.reddit.com/r/linuxmemes/comments/uozdlx/thanks_for_the_suggestions_everyone_i_learned_a/)
     
 #
+
+11. A web scraper (or Content Aggregator), that filters for content you want:
+    - pictures
+    - text
+    - pictures and related text
+    - stock prices
+    - newsarticles
+
+#
+
+12. Directory Tree Generator
+    - A Directory Tree Generator lets you visualize the relationship between files and directories, thereby making it easier to understand the positioning of files and directories.
+
+#
