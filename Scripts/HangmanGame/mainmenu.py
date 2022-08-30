@@ -1,9 +1,8 @@
-#from hangman_game.py import main
-#from Python.Scripts.PythonToolbox.PythonToolbox import clearConsole
 import os
 import time
-from hangman_game import Hangman
 import random
+from hangman_game import Hangman
+
 
 def clearConsole():
     command = 'clear'
