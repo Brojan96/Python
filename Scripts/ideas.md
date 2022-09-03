@@ -24,7 +24,7 @@
 3. tic tac toe game
     - random generator: 1 - 9, picks one field at random, checks if the field is available, if not it rerolls, if its free then it asks for the players input
 
-<br>    
+<br>
 
     1 2 3
     4 5 6
@@ -32,10 +32,10 @@
 
 <br>
 
-    - conditional logic: if 5 is occupied by the enemy and 3 by me, pick 1 or 9 (expert mode); pick 1, 2, 6 or 9 (easy mode)
-    - two gamemodes: easy - expert
-    - gui or ascii art in the terminal
-    - clickable interface
+- conditional logic: if 5 is occupied by the enemy and 3 by me, pick 1 or 9 (expert mode); pick 1, 2, 6 or 9 (easy mode)
+- two gamemodes: easy - expert
+- gui or ascii art in the terminal
+- clickable interface
 
 #
 
@@ -75,13 +75,7 @@
 
 #
 
-7. image scraper
-    - scrapes images of a certain website
-    - progress bar (like arch install script)
-
-#
- 
-8. Vokabeltrainer 
+7. Vokabeltrainer 
     - menu: add new vokabels or train with the ones in the database
     - add new vokabels: asks for user input and saves it to a database
     - adds the new entries to the end of the database and assign the proefficiency 0
@@ -93,7 +87,7 @@
 
 #
 
-9. Text Adventure Game
+8. Text Adventure Game
     - interessting story with different twists: display it in a good, easy to read way
     - ask for user input at the appropiate time
     - display text according to the user input
@@ -101,20 +95,21 @@
 
 #
 
-10. a Website price comparison tool, like this: [example](https://www.reddit.com/r/linuxmemes/comments/uozdlx/thanks_for_the_suggestions_everyone_i_learned_a/)
+9. a Website price comparison tool, like this: [example](https://www.reddit.com/r/linuxmemes/comments/uozdlx/thanks_for_the_suggestions_everyone_i_learned_a/)
     
 #
 
-11. A web scraper (or Content Aggregator), that filters for content you want:
+10. A web scraper (or Content Aggregator), that filters for content you want:
     - pictures
     - text
     - pictures and related text
     - stock prices
     - newsarticles
+    - progress bar (like arch install script)
 
 #
 
-12. Directory Tree Generator
+11. Directory Tree Generator
     - A Directory Tree Generator lets you visualize the relationship between files and directories, thereby making it easier to understand the positioning of files and directories.
 
 #
