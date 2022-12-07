@@ -7,7 +7,6 @@ from PythonToolbox import terminalProgressbar
 TODO: 
 - import Progressbar from different location
 - Kommandozeilen Argumente
-- generate 10000 files at a certain location
 - option to remove the date entirely
 """
 
