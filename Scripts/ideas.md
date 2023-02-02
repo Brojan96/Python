@@ -92,6 +92,13 @@
     - ask for user input at the appropiate time
     - display text according to the user input
     - find a story on the internet or ask leonie if she wants to write one.
+    - game contents:
+        - different abilities (spells (you will learn new abilities on levelup))
+        - pokemom like fighting system
+        - progression system: armor / weapons 
+    - how does the player interact with the world?
+        - there is a world that the player can navigate
+        - world composition: overworld, underworld
 
 #
 
@@ -99,6 +106,7 @@
 
     legend
     - platform = epic, steam, origin, uplay, gog, 
+    - keysellers (legit) = greemangaming, 
 
     function 1
     - Select a game
